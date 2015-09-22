@@ -1,0 +1,15 @@
+* V0.1 : Première release
+* V0.2 : Corrections :
+** Correction du cron : MAJ tous les 5 mns
+** Corrections sur la page de configuration
+* V0.3 : Corrections graphiques
+* V0.4 : 
+** Réécriture en profondeur et allègement du code
+** Historisation des relevés et affichage dans les graphiques.
+* V0.5 : Modification de la taille des infos + ajouts des modules intérieurs ainsi que le pluviomètre
+* V0.6 : Corrections
+* V0.7: Création automatique des stations / modules
+* V0.8 : Corrections
+* V1.0 : Compatibilité avec le mode Design et historique direct sur le Dashboard
+* V1.1 : Ajout de la doc
+* V1.2 : Ajout du design alternatif et modification de l'adresse

@@ -99,12 +99,18 @@ class netatmoThermostat extends eqLogic {
 		$deviceid= $ids[0];
 		$token = netatmoThermostat::getTokenfromNetatmo('read');
 		$url_thermostat="https://api.netatmo.net/api/getthermostatsdata?access_token=" .  $token."&device_id=".$deviceid;
-		$resulat_therm = @file_get_contents($url_thermostat);
-        $json_therm = json_decode($resulat_therm,true);
+		$resultat_therm = @file_get_contents($url_thermostat);
+        $json_therm = json_decode($resultat_therm,true);
+		log::add('netatmoThermostat','debug',print_r($resultat_therm,true));
 		$eqLogic = eqLogic::byLogicalId($multiId,'netatmoThermostat');
 		$temperature_thermostat = $json_therm["body"]["devices"][0]["modules"][0]["measured"]["temperature"];
 		$wifistatus=$json_therm["body"]["devices"][0]["wifi_status"];
+		$batterie=$json_therm["body"]["devices"][0]["modules"][0]["battery_vp"];
 		$rfstatus=$json_therm["body"]["devices"][0]["modules"][0]["rf_status"];
+		$chaudierestate=$json_therm["body"]["devices"][0]["modules"][0]["therm_relay_cmd"];
+		if ($chaudierestate != 0) {
+			$chaudierestate = 1;
+		}
 		$planindex=0;
 		$count=0;
 		$listplanning='';
@@ -123,12 +129,14 @@ class netatmoThermostat extends eqLogic {
 		if ($mode=='away') {
 			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["zones"][2]["temp"];
 			$mode = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][2]["name"];
+			$setpointmode_endtime=9999;
        } elseif ($mode=='hg') {
 			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["zones"][3]["temp"];
 			$mode =$json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["zones"][3]["name"];
+			$setpointmode_endtime=9999;
        } elseif ($mode=='manual') {
-			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["measured"]["setpoint_temp"];
-			$setpointmode_endtime1 =  $json_therm["body"]["devices"][0]["modules"][0]["setpoint"]["setpoint_endtime"];
+			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["setpoint"]["setpoint_temp"];
+			$setpointmode_endtime = date ( 'Hi' , $json_therm["body"]["devices"][0]["modules"][0]["setpoint"]["setpoint_endtime"] ) ;
 			$mode = 'Manuel';
 		} elseif ($mode=='program') {
 			$day=date('w',time())-1;
@@ -155,12 +163,16 @@ class netatmoThermostat extends eqLogic {
 				$minute=floor($reste/60);
 				$seconde=$reste%60;
 				$zero='';
+				$zeroh='';
 				if ($minute<=9) {$zero='0';}
+				if ($heure<=9) {$zeroh='0';}
 				$i++;
 			}
+			$setpointmode_endtime=$zeroh.$heure.$zero.$minute;
 			$mode = 'Programme';
 		} else {
 			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["measured"]["setpoint_temp"];
+			$setpointmode_endtime=9999;
 		}
 		foreach ($eqLogic->getCmd('info') as $cmd) {
 			switch ($cmd->getName()) {
@@ -190,6 +202,15 @@ class netatmoThermostat extends eqLogic {
 						break;
 						case 'Liste Calendrier':
 							$value=substr($listplanning, 0, -1);
+						break;
+						case 'Etat Chauffage':
+							$value=$chaudierestate;
+						break;
+						case 'Heure Fin Mode en Cours':
+							$value=$setpointmode_endtime;
+						break;
+						case 'Batterie':
+							$value=$batterie;
 						break;
 			}
 			$cmd->event($value);
@@ -338,6 +359,32 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
+			$netatmoThermostatcmd = $this->getCmd(null, 'batterie');
+			if (!is_object($netatmoThermostatcmd)) {
+				$netatmoThermostatcmd = new netatmoThermostatcmd();
+				$netatmoThermostatcmd->setName(__('Batterie', __FILE__));
+				$netatmoThermostatcmd->setIsHistorized(1);
+			}
+			$netatmoThermostatcmd->setEqLogic_id($this->getId());
+			$netatmoThermostatcmd->setLogicalId('batterie');
+			$netatmoThermostatcmd->setType('info');
+			$netatmoThermostatcmd->setSubType('numeric');
+			$netatmoThermostatcmd->setEventOnly(1);
+			$netatmoThermostatcmd->save();
+			
+			$netatmoThermostatcmd = $this->getCmd(null, 'endsetpoint');
+			if (!is_object($netatmoThermostatcmd)) {
+				$netatmoThermostatcmd = new netatmoThermostatcmd();
+				$netatmoThermostatcmd->setName(__('Heure Fin Mode en Cours', __FILE__));
+				$netatmoThermostatcmd->setIsHistorized(0);
+			}
+			$netatmoThermostatcmd->setEqLogic_id($this->getId());
+			$netatmoThermostatcmd->setLogicalId('endsetpoint');
+			$netatmoThermostatcmd->setType('info');
+			$netatmoThermostatcmd->setSubType('numeric');
+			$netatmoThermostatcmd->setEventOnly(1);
+			$netatmoThermostatcmd->save();
+			
 			$netatmoThermostatcmd = $this->getCmd(null, 'wifistatus');
 			if (!is_object($netatmoThermostatcmd)) {
 				$netatmoThermostatcmd = new netatmoThermostatcmd();
@@ -349,6 +396,19 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setUnite('%');
 			$netatmoThermostatcmd->setSubType('numeric');
+			$netatmoThermostatcmd->setEventOnly(1);
+			$netatmoThermostatcmd->save();
+			
+			$netatmoThermostatcmd = $this->getCmd(null, 'heatstatus');
+			if (!is_object($netatmoThermostatcmd)) {
+				$netatmoThermostatcmd = new netatmoThermostatcmd();
+				$netatmoThermostatcmd->setName(__('Etat Chauffage', __FILE__));
+				$netatmoThermostatcmd->setIsHistorized(1);
+			}
+			$netatmoThermostatcmd->setEqLogic_id($this->getId());
+			$netatmoThermostatcmd->setLogicalId('heatstatus');
+			$netatmoThermostatcmd->setType('info');
+			$netatmoThermostatcmd->setSubType('binary');
 			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
             

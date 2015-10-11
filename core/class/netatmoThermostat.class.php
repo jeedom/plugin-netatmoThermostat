@@ -81,6 +81,18 @@ class netatmoThermostat extends eqLogic {
 		$result = $request->exec();
 		$this->syncWithTherm($multiId);
     }
+	
+	public function changescheduleTherm($multiId,$scheduleid) {
+		$ids = explode('|', $multiId);
+		$deviceid= $ids[0];
+		$modid= $ids[1];
+		$token = netatmoThermostat::getTokenfromNetatmo('write');
+		$url_thermostat="https://api.netatmo.net/api/switchschedule?access_token=" .  $token."&device_id=".$deviceid."&module_id=".$modid."&schedule_id=".$scheduleid;
+		log::add('netatmoThermostat', 'debug',"Setting schedule to : " . $scheduleid);
+		$request = new com_http($url_thermostat);
+		$result = $request->exec();
+		$this->syncWithTherm($multiId);
+    }
 
     public function syncWithTherm($multiId) {
 		$ids = explode('|', $multiId);
@@ -89,20 +101,31 @@ class netatmoThermostat extends eqLogic {
 		$url_thermostat="https://api.netatmo.net/api/getthermostatsdata?access_token=" .  $token."&device_id=".$deviceid;
 		$resulat_therm = @file_get_contents($url_thermostat);
         $json_therm = json_decode($resulat_therm,true);
-		log::add('netatmoThermostat', 'debug', print_r($resulat_therm, true));
 		$eqLogic = eqLogic::byLogicalId($multiId,'netatmoThermostat');
 		$temperature_thermostat = $json_therm["body"]["devices"][0]["modules"][0]["measured"]["temperature"];
 		$wifistatus=$json_therm["body"]["devices"][0]["wifi_status"];
 		$rfstatus=$json_therm["body"]["devices"][0]["modules"][0]["rf_status"];
+		$planindex=0;
+		$count=0;
+		$listplanning='';
+		foreach ($json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"] as $plan) {
+			$status=(isset($plan['selected'])) ? $plan['selected'] : "NO";
+			if ($status == true){
+				$planningname=$plan['name'];
+				$planindex=$count;
+			}
+			$listplanning=$listplanning . $plan['name'] . ';' . $plan['program_id'] . '|';
+			$count++;
+		}
 		$mode=$json_therm["body"]["devices"][0]["modules"][0]["setpoint"]["setpoint_mode"];
 		$planning ='Aucun';
 		$nextplanning ='Aucun';
 		if ($mode=='away') {
-			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][2]["temp"];
+			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["zones"][2]["temp"];
 			$mode = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][2]["name"];
        } elseif ($mode=='hg') {
-			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][3]["temp"];
-			$mode =$json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][3]["name"];
+			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["zones"][3]["temp"];
+			$mode =$json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["zones"][3]["name"];
        } elseif ($mode=='manual') {
 			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["measured"]["setpoint_temp"];
 			$setpointmode_endtime1 =  $json_therm["body"]["devices"][0]["modules"][0]["setpoint"]["setpoint_endtime"];
@@ -116,14 +139,14 @@ class netatmoThermostat extends eqLogic {
 			$i=0;
 			$secondes=0;
 			while($secondes<=$temps){
-				$minutes = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["timetable"][$i]["m_offset"];
-				$planning_id = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["timetable"][($i-1)]["id"];
-				$nextplanning_id = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["timetable"][($i)]["id"];
+				$minutes = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["timetable"][$i]["m_offset"];
+				$planning_id = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["timetable"][($i-1)]["id"];
+				$nextplanning_id = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["timetable"][($i)]["id"];
 				if ($planning_id>2) {$planning_id=$planning_id-2;} 
 				if ($nextplanning_id>2) {$nextplanning_id=$nextplanning_id-2;} // dans la table, il y a intercalage des modes 'absent' et 'HG' qui décalent la numérotation 
-				$planning = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][$planning_id]["name"];
-				$nextplanning = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][$nextplanning_id]["name"];
-				$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][$planning_id]["temp"];
+				$planning = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["zones"][$planning_id]["name"];
+				$nextplanning = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["zones"][$nextplanning_id]["name"];
+				$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][$planindex]["zones"][$planning_id]["temp"];
 				$secondes = 60 * $minutes;
 				$jour=floor($secondes/86400);
 				$reste=$secondes%86400;
@@ -161,6 +184,12 @@ class netatmoThermostat extends eqLogic {
 						break;
 						case 'Planning suivant':
 							$value=$nextplanning;
+						break;
+						case 'Calendrier':
+							$value=$planningname;
+						break;
+						case 'Liste Calendrier':
+							$value=substr($listplanning, 0, -1);
 						break;
 			}
 			$cmd->event($value);
@@ -259,6 +288,18 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
+			$netatmoThermostatcmd = $this->getCmd(null, 'calendar');
+			if (!is_object($netatmoThermostatcmd)) {
+				$netatmoThermostatcmd = new netatmoThermostatcmd();
+				$netatmoThermostatcmd->setName(__('Calendrier', __FILE__));
+			}
+			$netatmoThermostatcmd->setEqLogic_id($this->getId());
+			$netatmoThermostatcmd->setLogicalId('calendar');
+			$netatmoThermostatcmd->setType('info');
+			$netatmoThermostatcmd->setSubType('string');
+			$netatmoThermostatcmd->setEventOnly(1);
+			$netatmoThermostatcmd->save();
+			
 			$netatmoThermostatcmd = $this->getCmd(null, 'nextplanning');
 			if (!is_object($netatmoThermostatcmd)) {
 				$netatmoThermostatcmd = new netatmoThermostatcmd();
@@ -266,6 +307,18 @@ class netatmoThermostat extends eqLogic {
 			}
 			$netatmoThermostatcmd->setEqLogic_id($this->getId());
 			$netatmoThermostatcmd->setLogicalId('nextplanning');
+			$netatmoThermostatcmd->setType('info');
+			$netatmoThermostatcmd->setSubType('string');
+			$netatmoThermostatcmd->setEventOnly(1);
+			$netatmoThermostatcmd->save();
+			
+			$netatmoThermostatcmd = $this->getCmd(null, 'listcalendar');
+			if (!is_object($netatmoThermostatcmd)) {
+				$netatmoThermostatcmd = new netatmoThermostatcmd();
+				$netatmoThermostatcmd->setName(__('Liste Calendrier', __FILE__));
+			}
+			$netatmoThermostatcmd->setEqLogic_id($this->getId());
+			$netatmoThermostatcmd->setLogicalId('listcalendar');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
 			$netatmoThermostatcmd->setEventOnly(1);

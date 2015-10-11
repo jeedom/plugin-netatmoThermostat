@@ -56,34 +56,56 @@ class netatmoThermostat extends eqLogic {
         }
     }
 	
-	public function actionOnTherm($multiId,$action_type) {
+	public function changemodeTherm($multiId,$action) {
+		$ids = explode('|', $multiId);
+		$deviceid= $ids[0];
+		$modid= $ids[1];
 		$token = netatmoThermostat::getTokenfromNetatmo('write');
+		$url_thermostat="https://api.netatmo.net/api/setthermpoint?access_token=" .  $token."&device_id=".$deviceid."&module_id=".$modid."&setpoint_mode=".$action;
+		log::add('netatmoThermostat', 'debug',"Setting mode to : " . $action);
+		$request = new com_http($url_thermostat);
+		$result = $request->exec();
+		$this->syncWithTherm($multiId);
     }
 	
+	public function changesetpointTherm($multiId,$setpoint) {
+		$ids = explode('|', $multiId);
+		$deviceid= $ids[0];
+		$modid= $ids[1];
+		$length=120;
+		$endtime = time() + ($length * 60);
+		$token = netatmoThermostat::getTokenfromNetatmo('write');
+		$url_thermostat="https://api.netatmo.net/api/setthermpoint?access_token=" .  $token."&device_id=".$deviceid."&module_id=".$modid."&setpoint_mode=manual&setpoint_endtime=".$endtime."&setpoint_temp=".$setpoint;
+		log::add('netatmoThermostat', 'debug',"Setting temperature to : " . $setpoint . " for " . $length . " minutes");
+		$request = new com_http($url_thermostat);
+		$result = $request->exec();
+		$this->syncWithTherm($multiId);
+    }
+
     public function syncWithTherm($multiId) {
 		$ids = explode('|', $multiId);
-		$devid= $ids[0];
-		$modid= $ids[1];
+		$deviceid= $ids[0];
 		$token = netatmoThermostat::getTokenfromNetatmo('read');
-		$url_thermostat="http://api.netatmo.net/api/getthermstate?access_token=" .  $token ."&device_id=".$devid."&module_id=".$modid;
+		$url_thermostat="https://api.netatmo.net/api/getthermostatsdata?access_token=" .  $token."&device_id=".$deviceid;
 		$resulat_therm = @file_get_contents($url_thermostat);
         $json_therm = json_decode($resulat_therm,true);
 		log::add('netatmoThermostat', 'debug', print_r($resulat_therm, true));
 		$eqLogic = eqLogic::byLogicalId($multiId,'netatmoThermostat');
-		$temperature_thermostat = $json_therm["body"]["measured"]["temperature"];
-		$wifistatus=$json_therm["body"]["wifi_status"];
-		$rfstatus=$json_therm["body"]["rf_status"];
-		$mode=$json_therm["body"]["setpoint"]["setpoint_mode"];
+		$temperature_thermostat = $json_therm["body"]["devices"][0]["modules"][0]["measured"]["temperature"];
+		$wifistatus=$json_therm["body"]["devices"][0]["wifi_status"];
+		$rfstatus=$json_therm["body"]["devices"][0]["modules"][0]["rf_status"];
+		$mode=$json_therm["body"]["devices"][0]["modules"][0]["setpoint"]["setpoint_mode"];
 		$planning ='Aucun';
+		$nextplanning ='Aucun';
 		if ($mode=='away') {
-			$consigne = $json_therm["body"]["therm_program"]["zones"][2]["temp"];
-			$mode = $json_therm["body"]["therm_program"]["zones"][2]["name"];
+			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][2]["temp"];
+			$mode = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][2]["name"];
        } elseif ($mode=='hg') {
-			$consigne = $json_therm["body"]["therm_program"]["zones"][3]["temp"];
-			$mode = $json_therm["body"]["therm_program"]["zones"][3]["name"];
+			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][3]["temp"];
+			$mode =$json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][3]["name"];
        } elseif ($mode=='manual') {
-			$consigne = $json_therm["body"]["measured"]["setpoint_temp"];
-			$setpointmode_endtime1 =  $json_therm["body"]["setpoint"]["setpoint_endtime"];
+			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["measured"]["setpoint_temp"];
+			$setpointmode_endtime1 =  $json_therm["body"]["devices"][0]["modules"][0]["setpoint"]["setpoint_endtime"];
 			$mode = 'Manuel';
 		} elseif ($mode=='program') {
 			$day=date('w',time())-1;
@@ -94,14 +116,14 @@ class netatmoThermostat extends eqLogic {
 			$i=0;
 			$secondes=0;
 			while($secondes<=$temps){
-				$minutes = $json_therm["body"]["therm_program"]["timetable"][$i]["m_offset"];
-				$planning_id = $json_therm["body"]["therm_program"]["timetable"][($i-1)]["id"];
-				$nextplanning_id = $json_therm["body"]["therm_program"]["timetable"][($i)]["id"];
+				$minutes = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["timetable"][$i]["m_offset"];
+				$planning_id = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["timetable"][($i-1)]["id"];
+				$nextplanning_id = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["timetable"][($i)]["id"];
 				if ($planning_id>2) {$planning_id=$planning_id-2;} 
 				if ($nextplanning_id>2) {$nextplanning_id=$nextplanning_id-2;} // dans la table, il y a intercalage des modes 'absent' et 'HG' qui décalent la numérotation 
-				$planning = $json_therm["body"]["therm_program"]["zones"][$planning_id]["name"];
-				$nextplanning = $json_therm["body"]["therm_program"]["zones"][$nextplanning_id]["name"];
-				$consigne = $json_therm["body"]["therm_program"]["zones"][$planning_id]["temp"];
+				$planning = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][$planning_id]["name"];
+				$nextplanning = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][$nextplanning_id]["name"];
+				$consigne = $json_therm["body"]["devices"][0]["modules"][0]["therm_program_list"][0]["zones"][$planning_id]["temp"];
 				$secondes = 60 * $minutes;
 				$jour=floor($secondes/86400);
 				$reste=$secondes%86400;
@@ -115,7 +137,7 @@ class netatmoThermostat extends eqLogic {
 			}
 			$mode = 'Programme';
 		} else {
-			$consigne = $json_therm["body"]["measured"]["setpoint_temp"];
+			$consigne = $json_therm["body"]["devices"][0]["modules"][0]["measured"]["setpoint_temp"];
 		}
 		foreach ($eqLogic->getCmd('info') as $cmd) {
 			switch ($cmd->getName()) {
@@ -148,14 +170,16 @@ class netatmoThermostat extends eqLogic {
     
     public function syncWithNetatmo() {
         $token = netatmoThermostat::getTokenfromNetatmo('read');
-        $url_devices = "https://api.netatmo.net/api/devicelist?access_token=" .  $token ."&app_type=app_thermostat";
-        $resulat_device = @file_get_contents($url_devices);
-        $json_devices = json_decode($resulat_device,true);
-		foreach ($json_devices['body']['modules'] as $thermostat) {
-			$id=$thermostat['_id']; 
-			$module_name=$thermostat['module_name'];
-			$device=$thermostat['main_device'];
-			$multiId = $device . '|' . $id;
+        $url_devices = "https://api.netatmo.net/api/getthermostatsdata?access_token=" .  $token;
+        $resultat_device = @file_get_contents($url_devices);
+        $json_devices = json_decode($resultat_device,true);
+		foreach ($json_devices['body']['devices'] as $thermostat) {
+			$deviceid=$thermostat['_id'];
+			$devicefirm=$thermostat['firmware'];
+			$module_name=$thermostat['modules'][0]['module_name'];
+			$modulefirm=$thermostat['modules'][0]['firmware'];
+			$moduleid=$thermostat['modules'][0]['_id'];
+			$multiId = $deviceid . '|' . $moduleid;
 			$eqLogic = netatmoThermostat::byLogicalId($multiId, 'netatmoThermostat');
 			if (!is_object($eqLogic)) {
 				$eqLogic = new self();
@@ -277,7 +301,7 @@ class netatmoThermostat extends eqLogic {
             
             $refresh = $this->getCmd(null, 'refresh');
             if (!is_object($refresh)) {
-                $refresh = new wazeintimeCmd();
+                $refresh = new netatmoThermostatcmd();
                 $refresh->setLogicalId('refresh');
                 $refresh->setIsVisible(1);
                 $refresh->setName(__('Rafraichir', __FILE__));
@@ -286,6 +310,90 @@ class netatmoThermostat extends eqLogic {
             $refresh->setSubType('other');
             $refresh->setEqLogic_id($this->getId());
             $refresh->save();
+            
+            $away = $this->getCmd(null, 'away');
+            if (!is_object($away)) {
+                $away = new netatmoThermostatcmd();
+                $away->setLogicalId('away');
+                $away->setIsVisible(1);
+                $away->setName(__('Absent', __FILE__));
+            }
+            $away->setType('action');
+            $away->setSubType('other');
+            $away->setEqLogic_id($this->getId());
+            $away->save();
+            
+            $program = $this->getCmd(null, 'program');
+            if (!is_object($program)) {
+                $program = new netatmoThermostatcmd();
+                $program->setLogicalId('program');
+                $program->setIsVisible(1);
+                $program->setName(__('Programme', __FILE__));
+            }
+            $program->setType('action');
+            $program->setSubType('other');
+            $program->setEqLogic_id($this->getId());
+            $program->save();
+            
+            $hg = $this->getCmd(null, 'hg');
+            if (!is_object($hg)) {
+                $hg = new netatmoThermostatcmd();
+                $hg->setLogicalId('hg');
+                $hg->setIsVisible(1);
+                $hg->setName(__('Hors-gel', __FILE__));
+            }
+            $hg->setType('action');
+            $hg->setSubType('other');
+            $hg->setEqLogic_id($this->getId());
+            $hg->save();
+            
+            $off = $this->getCmd(null, 'off');
+            if (!is_object($off)) {
+                $off = new netatmoThermostatcmd();
+                $off->setLogicalId('off');
+                $off->setIsVisible(1);
+                $off->setName(__('Eteindre', __FILE__));
+            }
+            $off->setType('action');
+            $off->setSubType('other');
+            $off->setEqLogic_id($this->getId());
+            $off->save();
+            
+            $max = $this->getCmd(null, 'max');
+            if (!is_object($max)) {
+                $max = new netatmoThermostatcmd();
+                $max->setLogicalId('max');
+                $max->setIsVisible(1);
+                $max->setName(__('Max', __FILE__));
+            }
+            $max->setType('action');
+            $max->setSubType('other');
+            $max->setEqLogic_id($this->getId());
+            $max->save();
+			
+			$consigneset = $this->getCmd(null, 'consigneset');
+            if (!is_object($consigneset)) {
+                $consigneset = new netatmoThermostatcmd();
+                $consigneset->setLogicalId('consigneset');
+                $consigneset->setIsVisible(1);
+                $consigneset->setName(__('Réglage Consigne', __FILE__));
+            }
+            $consigneset->setType('action');
+            $consigneset->setSubType('slider');
+            $consigneset->setEqLogic_id($this->getId());
+            $consigneset->save();
+			
+			$dureeset = $this->getCmd(null, 'dureeset');
+            if (!is_object($dureeset)) {
+                $dureeset = new netatmoThermostatcmd();
+                $dureeset->setLogicalId('dureeset');
+                $dureeset->setIsVisible(1);
+                $dureeset->setName(__('Réglage Durée', __FILE__));
+            }
+            $dureeset->setType('action');
+            $dureeset->setSubType('slider');
+            $dureeset->setEqLogic_id($this->getId());
+            $dureeset->save();
 	}
 
 	//public function toHtml($_version = 'dashboard') {
@@ -300,13 +408,20 @@ class netatmoThermostatCmd extends cmd {
 
 	/*     * *********************Methode d'instance************************* */
 
-	public function dontRemoveCmd() {
-		return true;
-	}
-
 	public function execute($_options = array()) {
+		if ($this->getType() == '') {
+			return '';
+		}
 		$eqLogic = $this->getEqlogic();
-		$eqLogic->syncWithTherm($eqLogic->getLogicalId());
+		$action= $this->getLogicalId();
+		if ($action == 'refresh') {
+			$eqLogic->syncWithTherm($eqLogic->getLogicalId());
+		} elseif ($action == 'away' || $action == 'hg' || $action == 'off' || $action == 'program' || $action == 'max') {
+			$eqLogic->changemodeTherm($eqLogic->getLogicalId(),$action);
+		} elseif ($action == 'consigneset') {
+			$temperatureset = $_options['slider'];
+			$eqLogic->changesetpointTherm($eqLogic->getLogicalId(),$temperatureset);
+		}
 	}
 
 	/*     * **********************Getteur Setteur*************************** */

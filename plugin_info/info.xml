@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <info>
     <id>netatmoThermostat</id>
-    <name>Netatmo Thermsotat</name>
+    <name>Netatmo Thermostat</name>
     <description>Plugin pour contrôler son thermostat Netatmo</description>
     <icon>icon divers-thermometer31</icon>
     <licence>AGPL</licence>

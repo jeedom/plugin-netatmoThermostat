@@ -120,6 +120,10 @@ class netatmoThermostat extends eqLogic {
 			}
 			$temperature_thermostat = $thermostat["modules"][0]["measured"]["temperature"];
 			$wifistatus=$thermostat["wifi_status"];
+			$devicefirm=$thermostat["firmware"];
+			$modulefirm=$thermostat["modules"][0]["firmware"];
+			$eqLogic->setConfiguration('devicefirm', $devicefirm);
+			$eqLogic->setConfiguration('modulefirm', $modulefirm);
 			$batterie=$thermostat["modules"][0]["battery_vp"];
 			$rfstatus=$thermostat["modules"][0]["rf_status"];
 			$chaudierestate=$thermostat["modules"][0]["therm_relay_cmd"];
@@ -179,36 +183,58 @@ class netatmoThermostat extends eqLogic {
 				$min=date('i',time());
 				if ($day == -1) {$day=6;};
 				$temps=($day*86400)+($hour*3600)+($min*60);
-				$i=0;
-				$secondes=0;
-				while($secondes<=$temps){
-					$minutes = $thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][$i]["m_offset"];
-					$planning_id = $thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][($i-1)]["id"];
-					$nextplanning_id = $thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][($i)]["id"];
-					if ($planning_id>2) {$planning_id=$planning_id-2;} 
-					if ($nextplanning_id>2) {$nextplanning_id=$nextplanning_id-2;} // dans la table, il y a intercalage des modes 'absent' et 'HG' qui décalent la numérotation 
-					$planning = $thermostat["modules"][0]["therm_program_list"][$planindex]["zones"][$planning_id]["name"];
-					$nextplanning = $thermostat["modules"][0]["therm_program_list"][$planindex]["zones"][$nextplanning_id]["name"];
-					$consigne = $thermostat["modules"][0]["therm_program_list"][$planindex]["zones"][$planning_id]["temp"];
-					$secondes = 60 * $minutes;
-					$jour=floor($secondes/86400);
-					$reste=$secondes%86400;
-					$heure=floor($reste/3600);
-					$reste=$reste%3600;
-					$minute=floor($reste/60);
-					$seconde=$reste%60;
-					$zero='';
-					$zeroh='';
-					if ($minute<=9) {$zero='0';}
-					if ($heure<=9) {$zeroh='0';}
-					$i++;
-				}
+				$idfound=99;
+				$goodkey=0;
+				foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"] as $key => $time) {
+                    if ($time["m_offset"]*60> $temps){
+                        $idfound = $time["id"];
+                        $goodkey = $key;
+                        $minutes = $time["m_offset"];
+                        break;
+                    } 
+                }
+                if ($idfound == 99) {
+                    $planning_id = $thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][count($thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"])]["id"];
+                    $nextplanning_id =$thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][0]["id"];
+                } else {
+                    $planning_id = $thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][$goodkey-1]["id"];
+                    $nextplanning_id =$thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][$goodkey]["id"];
+                }
+                foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"] as $zone) {
+                    if ($zone["id"]== $planning_id) {
+                        $planning=$zone["name"];
+                        $consigne=$zone["temp"];
+                    } else if ($zone["id"]== $nextplanning_id) {
+                        $nextplanning=$zone["name"];
+                    }
+                }
+				$secondes = 60 * $minutes;
+				$jour=floor($secondes/86400);
+				$reste=$secondes%86400;
+				$heure=floor($reste/3600);
+				$reste=$reste%3600;
+				$minute=floor($reste/60);
+				$seconde=$reste%60;
+				$zero='';
+				$zeroh='';
+				if ($minute<=9) {$zero='0';}
+				if ($heure<=9) {$zeroh='0';}
 				$setpointmode_endtime=$zeroh.$heure.':'.$zero.$minute;
 				$modename = 'Programme';
 			} elseif ($mode=='off') {
 				$consigne = 0;
 				$modename = 'Off';
-			} else {
+			}elseif ($mode=='max') {
+				$consigne = 30;
+				$modename ='Forcé';
+				if (isset($thermostat["modules"][0]["setpoint"]["setpoint_endtime"])){
+					if ($actualdate == $setpointmode_endtime=date('d/m/Y',$thermostat["modules"][0]["setpoint"]["setpoint_endtime"])) {
+						$setpointmode_endtime=date('H:i',$thermostat["modules"][0]["setpoint"]["setpoint_endtime"]);
+					} else {
+						$setpointmode_endtime=date('d/m H:i',$thermostat["modules"][0]["setpoint"]["setpoint_endtime"]);
+					}
+				}
+       } else {
 				$consigne = $thermostat["modules"][0]["measured"]["setpoint_temp"];
 				$modename = $mode;
 			}
@@ -264,7 +290,7 @@ class netatmoThermostat extends eqLogic {
 							break;
 				}
 				$cmd->event($value);
-				log::add('netatmoThermostat','debug','set:'.$cmd->getName().' to '. $value);
+				log::add('netatmoThermostat','debug','set: '.$cmd->getName().' to '. $value);
 			}
 			$mc = cache::byKey('netatmoThermostatWidgetmobile' . $eqLogic->getId());
 			$mc->remove();
@@ -521,7 +547,9 @@ class netatmoThermostat extends eqLogic {
                 $away->setName(__('Absent', __FILE__));
             }
             $away->setType('action');
-            $away->setSubType('other');
+			$away->setDisplay('title_disable', 1);
+			$away->setDisplay('message_placeholder', __('Durée (minutes)', __FILE__));
+			$away->setSubType('message');
             $away->setEqLogic_id($this->getId());
             $away->save();
             
@@ -545,7 +573,9 @@ class netatmoThermostat extends eqLogic {
                 $hg->setName(__('Hors-gel', __FILE__));
             }
             $hg->setType('action');
-            $hg->setSubType('other');
+			$hg->setDisplay('title_disable', 1);
+			$hg->setDisplay('message_placeholder', __('Durée (minutes)', __FILE__));
+			$hg->setSubType('message');
             $hg->setEqLogic_id($this->getId());
             $hg->save();
             
@@ -569,7 +599,9 @@ class netatmoThermostat extends eqLogic {
                 $max->setName(__('Max', __FILE__));
             }
             $max->setType('action');
-            $max->setSubType('other');
+			$max->setDisplay('title_disable', 1);
+			$max->setDisplay('message_placeholder', __('Durée (minutes)', __FILE__));
+			$max->setSubType('message');
             $max->setEqLogic_id($this->getId());
             $max->save();
 
@@ -581,9 +613,9 @@ class netatmoThermostat extends eqLogic {
                 $consigneset->setName(__('Réglage Consigne', __FILE__));
             }
             $consigneset->setType('action');
-            $consigneset->setSubType('slider');
-			$consigneset->setConfiguration('minValue', 7);
-			$consigneset->setConfiguration('maxValue', 28);
+			$consigneset->setDisplay('title_disable', 1);
+			$consigneset->setDisplay('message_placeholder', __('Durée (minutes)', __FILE__));
+			$consigneset->setSubType('message');
             $consigneset->setEqLogic_id($this->getId());
             $consigneset->save();
 			
@@ -633,8 +665,6 @@ class netatmoThermostat extends eqLogic {
 
 		$consigneset = $this->getCmd(null, 'consigneset');
 		$replace['#thermostat_cmd_id#'] = $consigneset->getId();
-		$replace['#thermostat_maxValue#'] = $consigneset->getConfiguration('maxValue');
-		$replace['#thermostat_minValue#'] = $consigneset->getConfiguration('minValue');
 		
 		$away = $this->getCmd(null, 'away');
 		$replace['#away_id#'] = $away->getId();
@@ -672,7 +702,25 @@ class netatmoThermostatCmd extends cmd {
 		$action= $this->getLogicalId();
 		if ($action == 'refresh') {
 			$eqLogic->syncWithTherm($eqLogic->getLogicalId());
-		} elseif ($action == 'away' || $action == 'hg' || $action == 'off' || $action == 'program' || $action == 'max') {
+		} elseif ($action == 'away' || $action == 'hg' || $action == 'max') {
+			$time='';
+			if (isset($_options['message'])){
+				$time=$_options['message'];
+			}
+			if ($time == '' && $action != 'max') {
+				$eqLogic->changemodeTherm($eqLogic->getLogicalId(),$action);
+			} else if ($time == '' && $action == 'max') {
+				$defaultime = $eqLogic->getConfiguration('maxdefault');
+				if ($defaultime == null || $defaultime == '') {
+					$defaultime = 60;
+				}
+				$endtime = time() + ($defaultime* 60);
+				$eqLogic->changemodeTherm($eqLogic->getLogicalId(),$action,$endtime);
+			} else {
+				$endtime = time() + ($time* 60);
+				$eqLogic->changemodeTherm($eqLogic->getLogicalId(),$action,$endtime);
+			}
+		} elseif ($action == 'off' || $action == 'program') {
 			$eqLogic->changemodeTherm($eqLogic->getLogicalId(),$action);
 		} elseif ($action == 'consigneset') {
 			$temperatureset = $_options['slider'];

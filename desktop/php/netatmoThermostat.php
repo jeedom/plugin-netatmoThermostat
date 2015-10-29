@@ -80,27 +80,41 @@ foreach (object::all() as $object) {
          <input type="checkbox" class="eqLogicAttr bootstrapSwitch" data-label-text="{{Visible}}" data-l1key="isVisible" checked/>
        </div>
      </div>
+	  <legend><i class="fa fa-info"></i>  {{Information}}</legend>
      <div class="form-group">
       <label class="col-sm-4 control-label">{{Identifiant}}</label>
-      <div class="col-sm-3">
-        <input disabled id="station_id" class="eqLogicAttr configuration form-control" data-l1key="logicalId"/>
+      <div class="col-sm-6">
+        <input disabled class="eqLogicAttr configuration form-control" data-l1key="logicalId"/>
       </div>
       </div>
        <div class="form-group">
       <label class="col-sm-4 control-label">{{Firmware}}</label>
+	  <div class="col-sm-2">
+        <input disabled class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="modulefirm"/>
+      </div>
       <div class="col-sm-2">
-        <input disabled id="station_id" class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="firmware"/>
+        <input disabled class="eqLogicAttr configuration form-control" data-l1key="configuration" data-l2key="devicefirm"/>
       </div>
     </div>
+	 <legend><i class="fa fa-wrench"></i>  {{Configuration}}</legend>
+                <div class="form-group">
+                    <label class="col-lg-4 control-label">{{Durée Mode Max par défaut}}</label>
+                    <div class="col-lg-4">
+                        <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="maxdefault" placeholder="{{Durée en minutes (60 par défaut)}}"/>
+                    </div>
   </fieldset>
 </form>
 </div>
 <div class="col-sm-6">
   <center>
-    <img src="plugins/netatmoThermostat/doc/images/thermostat.png" style="height : 300px;" />
+    <img src="plugins/netatmoThermostat/doc/images/thermostat.png" style="height : 400px;" />
   </center>
 </div>
 </div>
+ <div class="form-actions" align="right">
+                    <a class="btn btn-danger eqLogicAction" data-action="remove"><i class="fa fa-minus-circle"></i> {{Supprimer}}</a>
+                    <a class="btn btn-success eqLogicAction" data-action="save"><i class="fa fa-check-circle"></i> {{Sauvegarder}}</a>
+                </div>
 
 <legend><i class="fa fa-list-alt"></i>  {{Tableau de commandes}}</legend>
 <table id="table_cmd" class="table table-bordered table-condensed">

@@ -34,7 +34,8 @@
         "Réglage Consigne": "Réglage Consigne",
         "Réglage Durée": "Réglage Durée",
         "ModeTech": "ModeTech",
-        "Fin Mode en Cours": "Fin Mode en Cours"
+        "Fin Mode en Cours": "Fin Mode en Cours",
+        "Durée (minutes)": "Durée (minutes)"
     },
     "plugins\/netatmoThermostat\/desktop\/php\/netatmoThermostat.php": {
         "Rechercher": "Rechercher",
@@ -53,7 +54,11 @@
         "Action": "Action",
         "Supprimer": "Supprimer",
         "Sauvegarder": "Sauvegarder",
-        "Vous n'avez pas encore de thermostat Netatmo, aller sur Général -> Plugin et cliquez sur synchroniser pour commencer": "Vous n'avez pas encore de thermostat Netatmo, aller sur Général -> Plugin et cliquez sur synchroniser pour commencer"
+        "Vous n'avez pas encore de thermostat Netatmo, aller sur Général -> Plugin et cliquez sur synchroniser pour commencer": "Vous n'avez pas encore de thermostat Netatmo, aller sur Général -> Plugin et cliquez sur synchroniser pour commencer",
+        "Configuration": "Configuration",
+        "Durée Mode Max par défaut": "Durée Mode Max par défaut",
+        "Durée en minutes (60 par défaut)": "Durée en minutes (60 par défaut)",
+        "Information": "Information"
     },
     "plugins\/netatmoThermostat\/desktop\/js\/netatmoThermostat.js": {
         "Nom": "Nom",

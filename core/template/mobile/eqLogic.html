@@ -84,18 +84,18 @@
 				</div>
 				<center>
 				<div class="modetemp">
-					<span id="sliderval#thermostat_cmd_id#" style="font-size : 2.5em; font-weight: bold;">#consigne#</span>°C</br>
-					<input id="slider#thermostat_cmd_id#" type="text" data-slider-min="7" data-slider-max="30" data-slider-step="0.5" data-slider-value="#consigne#"  data-slider-tooltip="hide" style="width : 75%;">
+					<span class="spanConsigne" style="font-size : 2.5em; font-weight: bold;">#consigne#</span>°C</br>
+					<input class="sliderConsigne" type="text" data-slider-min="7" data-slider-max="30" data-slider-step="0.5" data-slider-value="#consigne#"  data-slider-tooltip="hide" style="width : 75%;">
 					<span class="heatstatus" style="cursor :default;font-size : 1.10em; font-weight: bold;margin-left : 5px;"><i class="fa fa-signal"></i> #wifistatus# <i class="fa fa-rss"></i> #rfstatus# <i class="fa fa-battery-full"></i> #batterie#</span>
 				</div>
                     <script>
 					$.include(['plugins/netatmoThermostat/core/template/mobile/bootstrap-slider.js'], function (){
-						$("#slider#thermostat_cmd_id#").bootstrapSlider();
-						$("#slider#thermostat_cmd_id#").on("slide", function(slideEvt) {
-							$("#sliderval#thermostat_cmd_id#").text(slideEvt.value);
-						});
-						$("#slider#thermostat_cmd_id#").on("slideStop", function(slideEvt) {
-							jeedom.cmd.execute({id: '#thermostat_cmd_id#', value: {'title': slideEvt.value}});
+						 $(".eqLogic[data-eqLogic_uid=#uid#] .sliderConsigne").bootstrapSlider();
+						$(".eqLogic[data-eqLogic_uid=#uid#] .sliderConsigne").on("slide",function(slideEvt) {
+						$(".eqLogic[data-eqLogic_uid=#uid#] .spanConsigne").text(slideEvt.value);
+					});
+						$(".eqLogic[data-eqLogic_uid=#uid#] .sliderConsigne").on("slideStop", function(slideEvt) {
+							jeedom.cmd.execute({id: '#thermostat_cmd_id#', value: {'message': slideEvt.value}});
 						});
 					});
 					$('.eqLogic[data-eqLogic_uid=#uid#] .changecmd').on('click', function () {

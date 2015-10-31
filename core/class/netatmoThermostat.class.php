@@ -300,9 +300,9 @@ class netatmoThermostat extends eqLogic {
 				$cmd->event($value);
 				log::add('netatmoThermostat','debug','set: '.$cmd->getName().' to '. $value);
 			}
-			$mc = cache::byKey('netatmoThermostatWidgetmobile' . $eqLogic->getId());
+			$mc = cache::byKey('netatmoThermostatmobile' . $eqLogic->getId());
 			$mc->remove();
-			$mc = cache::byKey('netatmoThermostatWidgetdashboard' . $eqLogic->getId());
+			$mc = cache::byKey('netatmoThermostatdashboard' . $eqLogic->getId());
 			$mc->remove();
 			$eqLogic->toHtml('mobile');
 			$eqLogic->toHtml('dashboard');
@@ -676,10 +676,10 @@ class netatmoThermostat extends eqLogic {
 		if (is_array($parameters) && isset($parameters['background_cmd_color'])) {
 			$cmdColor = $parameters['background_cmd_color'];
 		}
-		/*$mc = cache::byKey('netatmoThermostat' . $_version . $this->getId());
+		$mc = cache::byKey('netatmoThermostat' . $_version . $this->getId());
 		if ($mc->getValue() != '') {
 			return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
-		}*/
+		}
 		$replace = array(
 			'#name#' => $this->getName(),
 			'#id#' => $this->getId(),

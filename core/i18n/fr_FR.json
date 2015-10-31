@@ -10,7 +10,8 @@
         "Mot de passe": "Mot de passe",
         "Synchroniser": "Synchroniser",
         "Synchroniser mes équipements": "Synchroniser mes équipements",
-        "Synchronisation réussie": "Synchronisation réussie"
+        "Synchronisation réussie": "Synchronisation réussie",
+        "Synchroniser mes Thermostats": "Synchroniser mes Thermostats"
     },
     "plugins\/netatmoThermostat\/core\/class\/netatmoThermostat.class.php": {
         "Consigne": "Consigne",
@@ -35,7 +36,11 @@
         "Réglage Durée": "Réglage Durée",
         "ModeTech": "ModeTech",
         "Fin Mode en Cours": "Fin Mode en Cours",
-        "Durée (minutes)": "Durée (minutes)"
+        "Durée (minutes)": "Durée (minutes)",
+        "Réglage Calendrier": "Réglage Calendrier",
+        "Id Calendrier": "Id Calendrier",
+        "Timestamp de fin": "Timestamp de fin",
+        "Réglage Fin": "Réglage Fin"
     },
     "plugins\/netatmoThermostat\/desktop\/php\/netatmoThermostat.php": {
         "Rechercher": "Rechercher",
@@ -58,7 +63,8 @@
         "Configuration": "Configuration",
         "Durée Mode Max par défaut": "Durée Mode Max par défaut",
         "Durée en minutes (60 par défaut)": "Durée en minutes (60 par défaut)",
-        "Information": "Information"
+        "Information": "Information",
+        "Durée Mode Max\/Manuel par défaut": "Durée Mode Max\/Manuel par défaut"
     },
     "plugins\/netatmoThermostat\/desktop\/js\/netatmoThermostat.js": {
         "Nom": "Nom",

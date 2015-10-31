@@ -51,7 +51,7 @@ if (!isConnect()) {
     <div class="form-group">
         <label class="col-lg-2 control-label">{{Synchroniser}}</label>
         <div class="col-lg-2">
-        <a class="btn btn-default" id="bt_syncWithNetatmoThermostat"><i class='fa fa-refresh'></i> {{Synchroniser mes équipements}}</a>
+        <a class="btn btn-default" id="bt_syncWithNetatmoThermostat"><i class='fa fa-refresh'></i> {{Synchroniser mes Thermostats}}</a>
         </div>
     </div>
 </fieldset>

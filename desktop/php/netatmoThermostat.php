@@ -98,7 +98,7 @@ foreach (object::all() as $object) {
     </div>
 	 <legend><i class="fa fa-wrench"></i>  {{Configuration}}</legend>
                 <div class="form-group">
-                    <label class="col-lg-4 control-label">{{Durée Mode Max par défaut}}</label>
+                    <label class="col-lg-4 control-label">{{Durée Mode Max/Manuel par défaut}}</label>
                     <div class="col-lg-4">
                         <input type="text" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="maxdefault" placeholder="{{Durée en minutes (60 par défaut)}}"/>
                     </div>

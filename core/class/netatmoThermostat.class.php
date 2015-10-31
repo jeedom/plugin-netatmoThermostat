@@ -74,12 +74,19 @@ class netatmoThermostat extends eqLogic {
 		$this->syncWithTherm($multiId);
     }
 	
-	public function changesetpointTherm($multiId,$setpoint) {
+	public function changesetpointTherm($multiId,$setpoint,$endtime=null) {
 		$ids = explode('|', $multiId);
 		$deviceid= $ids[0];
 		$modid= $ids[1];
-		$length=120;
-		$endtime = time() + ($length * 60);
+		if ($endtime==null) {
+			$length = $this->getConfiguration('maxdefault');
+			if ($length == null || $length == '') {
+				$length = 60;
+			}
+			$endtime = time() + ($length* 60);
+		} else {
+			$length = ($endtime-time())/60;
+		}
 		log::add('netatmoThermostat', 'debug',"Setting temperature to : " . $setpoint . " for " . $length . " minutes");
 		$client = self::getClient();
 		$client->setToManualMode($deviceid, $modid, $setpoint, $endtime);
@@ -90,15 +97,13 @@ class netatmoThermostat extends eqLogic {
 		$ids = explode('|', $multiId);
 		$deviceid= $ids[0];
 		$modid= $ids[1];
-		$token = netatmoThermostat::getTokenfromNetatmo('write');
-		$url_thermostat="https://api.netatmo.net/api/switchschedule?access_token=" .  $token."&device_id=".$deviceid."&module_id=".$modid."&schedule_id=".$scheduleid;
 		log::add('netatmoThermostat', 'debug',"Setting schedule to : " . $scheduleid);
-		$request = new com_http($url_thermostat);
-		$result = $request->exec();
-		$this->syncWithTherm($multiId);
+		$client = self::getClient();
+		$client->switchSchedule($deviceid, $modid, $scheduleid);
+		$this->syncWithTherm($multiId, null, $scheduleid);
     }
 
-    public function syncWithTherm($multiId = null,$forcedSetpoint = null) {
+    public function syncWithTherm($multiId = null,$forcedSetpoint = null, $scheduleid=null) {
 		sleep(3);
 		if($multiId !== null){
 			$ids = explode('|', $multiId);
@@ -134,8 +139,11 @@ class netatmoThermostat extends eqLogic {
 			$count=0;
 			$listplanning='';
 			foreach ($thermostat["modules"][0]["therm_program_list"] as $plan) {
-				$status=(isset($plan['selected'])) ? $plan['selected'] : "NO";
-				if ($status == true){
+				$status=(isset($plan['selected'])) ? "YES" : "NO";
+				if ($status == "YES" && $scheduleid == null){
+					$planningname=$plan['name'];
+					$planindex=$count;
+				} else if ($scheduleid != null && $plan['program_id']==$scheduleid) {
 					$planningname=$plan['name'];
 					$planindex=$count;
 				}
@@ -286,7 +294,7 @@ class netatmoThermostat extends eqLogic {
 									$batterylevel = 0;
 								}
 								$eqLogic->batteryStatus($batterylevel);
-								$value=$batterie;
+								$value=$batterylevel;
 							break;
 				}
 				$cmd->event($value);
@@ -613,21 +621,37 @@ class netatmoThermostat extends eqLogic {
                 $consigneset->setName(__('Réglage Consigne', __FILE__));
             }
             $consigneset->setType('action');
-			$consigneset->setDisplay('title_disable', 1);
+			$consigneset->setDisplay('title_placeholder', __('Température', __FILE__));
 			$consigneset->setDisplay('message_placeholder', __('Durée (minutes)', __FILE__));
 			$consigneset->setSubType('message');
             $consigneset->setEqLogic_id($this->getId());
             $consigneset->save();
+			
+			$calendarset = $this->getCmd(null, 'calendarset');
+            if (!is_object($calendarset)) {
+                $calendarset = new netatmoThermostatcmd();
+                $calendarset->setLogicalId('calendarset');
+                $calendarset->setIsVisible(1);
+                $calendarset->setName(__('Réglage Calendrier', __FILE__));
+            }
+            $calendarset->setType('action');
+			$calendarset->setDisplay('title_disable', 1);
+			$calendarset->setDisplay('message_placeholder', __('Id Calendrier', __FILE__));
+			$calendarset->setSubType('message');
+            $calendarset->setEqLogic_id($this->getId());
+            $calendarset->save();
 			
 			$dureeset = $this->getCmd(null, 'dureeset');
             if (!is_object($dureeset)) {
                 $dureeset = new netatmoThermostatcmd();
                 $dureeset->setLogicalId('dureeset');
                 $dureeset->setIsVisible(1);
-                $dureeset->setName(__('Réglage Durée', __FILE__));
+                $dureeset->setName(__('Réglage Fin', __FILE__));
             }
             $dureeset->setType('action');
-            $dureeset->setSubType('slider');
+			$dureeset->setDisplay('title_disable', 1);
+			$dureeset->setDisplay('message_placeholder', __('Timestamp de fin', __FILE__));
+			$dureeset->setSubType('message');
             $dureeset->setEqLogic_id($this->getId());
             $dureeset->save();
 	}
@@ -643,6 +667,15 @@ class netatmoThermostat extends eqLogic {
 		if ($this->getDisplay('hideOn' . $_version) == 1) {
 			return '';
 		}
+		$vcolor = 'cmdColor';
+		if ($_version == 'mobile') {
+			$vcolor = 'mcmdColor';
+		}
+		$parameters = $this->getDisplay('parameters');
+		$cmdColor = ($this->getPrimaryCategory() == '') ? '' : jeedom::getConfiguration('eqLogic:category:' . $this->getPrimaryCategory() . ':' . $vcolor);
+		if (is_array($parameters) && isset($parameters['background_cmd_color'])) {
+			$cmdColor = $parameters['background_cmd_color'];
+		}
 		/*$mc = cache::byKey('netatmoThermostat' . $_version . $this->getId());
 		if ($mc->getValue() != '') {
 			return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
@@ -653,13 +686,30 @@ class netatmoThermostat extends eqLogic {
 			'#background_color#' => $this->getBackgroundColor($_version),
 			'#eqLink#' => ($this->hasRight('w')) ? $this->getLinkToConfiguration() : '#',
 			'#uid#' => 'netatmoThermostat' . $this->getId() . self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER,
+			'#cmdColor#' => $cmdColor,
 			'#endtime#' => $this->getCmd(null,'endsetpoint')->execCmd(),
 		);
 
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
 		}
-		
+		$actualcalendar = $this->getCmd(null, 'calendar')->execCmd();
+		$calendar_list_cmd = $this->getCmd(null, 'listcalendar');
+		$calendar_string = $calendar_list_cmd->execCmd();
+		$calendar_list = explode( '|' , $calendar_string);
+		foreach ($calendar_list as $calendar) {
+			$detail_calendar = explode( ';' , $calendar);
+			if ($actualcalendar == $detail_calendar[0]) {
+				$valuecalendar = '"'.$detail_calendar[1] . '" selected';
+			} else {
+				$valuecalendar = '"'.$detail_calendar[1].'"';
+			}
+			if (!isset($replace['#calendar_selector#'])) {
+				$replace['#calendar_selector#'] = '<option value=' . $valuecalendar . '>' . $detail_calendar[0] . '</option>';
+			} else {
+				$replace['#calendar_selector#'] .= '<option value=' . $valuecalendar . '>' . $detail_calendar[0] . '</option>';
+			}
+		}
 		$refresh = $this->getCmd(null, 'refresh');
 		$replace['#refresh_id#'] = $refresh->getId();
 
@@ -680,6 +730,12 @@ class netatmoThermostat extends eqLogic {
 		
 		$off = $this->getCmd(null, 'off');
 		$replace['#off_id#'] = $off->getId();
+		
+		$calendarset = $this->getCmd(null, 'calendarset');
+		$replace['#calendar_change#'] = $calendarset->getId();
+		
+		$dureeset = $this->getCmd(null, 'dureeset');
+		$replace['#endtime_change#'] = $dureeset->getId();
 		
 		$html = template_replace($replace, getTemplate('core', $_version, 'eqLogic', 'netatmoThermostat'));
 		cache::set('netatmoThermostat' . $_version . $this->getId(), $html, 0);
@@ -723,8 +779,42 @@ class netatmoThermostatCmd extends cmd {
 		} elseif ($action == 'off' || $action == 'program') {
 			$eqLogic->changemodeTherm($eqLogic->getLogicalId(),$action);
 		} elseif ($action == 'consigneset') {
-			$temperatureset = $_options['slider'];
-			$eqLogic->changesetpointTherm($eqLogic->getLogicalId(),$temperatureset);
+			$temperatureset = $_options['title'];
+			$time='';
+			if (isset($_options['message'])){
+				$time=$_options['message'];
+			}
+			if ($time == '') {
+				$eqLogic->changesetpointTherm($eqLogic->getLogicalId(),$temperatureset);
+			} else {
+				$endtime = time() + ($time* 60);
+				$eqLogic->changesetpointTherm($eqLogic->getLogicalId(),$temperatureset, $endtime);
+			}
+		} elseif ($action == 'dureeset') {
+			$dureeset = $_options['message'];
+			$timestamp = strtotime($dureeset);
+			$mode = $eqLogic->getCmd(null, 'modetech')->execCmd();
+			switch ($mode){
+				case 'away':
+					$eqLogic->changemodeTherm($eqLogic->getLogicalId(),$mode,$timestamp);
+				break;
+				case 'hg':
+					$eqLogic->changemodeTherm($eqLogic->getLogicalId(),$mode,$timestamp);
+				break;
+				case 'manual':
+					$temperatureset=$eqLogic->getCmd(null, 'consigne')->execCmd();
+					$eqLogic->changesetpointTherm($eqLogic->getLogicalId(),$temperatureset,$timestamp);
+				break;
+				case 'max':
+					$eqLogic->changemodeTherm($eqLogic->getLogicalId(),$mode,$timestamp);
+				break;
+				default:
+					log::add('netatmoThermostat','debug','Vous n\'êtes pas dans un mode pour lequel une durée peut être définie');
+				break;
+			}
+		} elseif ($action == 'calendarset') {
+			$scheduleid = $_options['message'];
+			$eqLogic->changescheduleTherm($eqLogic->getLogicalId(),$scheduleid);
 		}
 	}
 

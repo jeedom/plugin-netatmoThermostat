@@ -10,25 +10,26 @@
             <div class="col-xs-6">
                 <br/>
                 <center>
-                    <span class="heatstatus" style="font-size : 1.10em; font-weight: bold;margin-left : 5px;">#temperature# °C </span>
+                    <span class="heatstatus" style="cursor : default;font-size : 1.5em; font-weight: bold;margin-left : 5px;">#temperature# °C </span>
                 </center>
-                <br/>
-
                 <span class="cmd cmd-widget" data-cmd_id="#away_id#" style="display:none;"></span>
                 <span class="cmd cmd-widget" data-cmd_id="#hg_id#" style="display:none;"></span>
                 <span class="cmd cmd-widget" data-cmd_id="#program_id#" style="display:none;"></span>
                 <span class="cmd cmd-widget" data-cmd_id="#off_id#" style="display:none;"></span>
                 <span class="cmd cmd-widget" data-cmd_id="#max_id#" style="display:none;"></span>
                 <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
+				<span class="cmd cmd-widget" data-cmd_id="#endtime_change#" style="display:none;"></span>
+				<span class="cmd cmd-widget" data-cmd_id="#calendar_change#" style="display:none;"></span>
 
-                <i class="fa fa-cog program cursor" title="Mettre le thermostat en mode automatique" style="font-size: 1.5em;margin-left: 5px;color:#3498db"></i>
-                <i class="icon jeedom-mouvement away cursor" title="Mettre le thermostat en mode absent" style="font-size: 1.5em;margin-left: 2px;color:#3498db"></i>
-                <i class="icon nature-snowflake hg cursor" title="Mettre le thermostat en mode hors-gel" style="font-size: 1.5em;margin-left: 5px;color:#3498db"></i>
-                <i class="icon nature-weather1 max cursor" title="Mettre le thermostat en mode chauffe forcée" style="font-size: 1.5em;margin-left: 5px;color:#3498db"></i>
-                <i class="fa fa-times off cursor" title="Eteindre le thermostat" style="font-size: 1.5em;margin-left: 5px;color:#3498db"></i>
+                <i class="fa fa-cog program cursor" title="Mettre le thermostat en mode automatique" style="font-size: 1.9em;margin-left: 5px;color:#3498db"></i>
+                <i class="icon jeedom-mouvement away cursor" title="Mettre le thermostat en mode absent" style="font-size: 1.9em;margin-left: 2px;color:#3498db"></i>
+                <i class="icon nature-snowflake hg cursor" title="Mettre le thermostat en mode hors-gel" style="font-size: 1.9em;margin-left: 5px;color:#3498db"></i>
+                <i class="icon nature-weather1 max cursor" title="Mettre le thermostat en mode chauffe forcée" style="font-size: 1.9em;margin-left: 5px;color:#3498db"></i>
+                <i class="fa fa-times off cursor" title="Eteindre le thermostat" style="font-size: 1.9em;margin-left: 5px;color:#3498db"></i>
 				<br/>
-                <span class="planning" style="cursor:default;font-size: 0.9em;margin-left: 5px;"></span>
-                <span class="calendar" style="cursor:default;font-size: 0.9em;position: relative;top: -2px;left: 5px;"></span>
+				
+                <span class="planning" style="cursor:default;font-size: 1em;margin-left: 5px;margin-top: 5px;"></span>
+                <span class="calendar" style="cursor:default;font-size: 1em;position: relative;top: -2px;left: 5px;"></span>
 
                 <script>
                     $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
@@ -80,27 +81,37 @@
             <div class="col-xs-6">
 				<div class="modeplan" style="display : none;">
 				<center>
-                    <span class="heatstatus" style="font-size : 1.10em; font-weight: bold;margin-left : 5px;"><i class="fa fa-signal"></i> #wifistatus# <i class="fa fa-rss"></i> #rfstatus# </span>
+                    <span class="heatstatus" style="font-size : 1.10em; font-weight: bold;margin-left : 5px;cursor : default;"><i class="fa fa-signal"></i> #wifistatus# <i class="fa fa-rss"></i> #rfstatus# <i class="fa fa-battery-full"></i> #batterie#</span>
+					</br>
+					<select class="cmd form-control selectCalendar" style="background-color:#cmdColor#;width:70%;color:white;border-radius: 10px;">
+							#calendar_selector#
+					</select>
+					</br>
+                <div class='cmd input-group date datetimepicker'>
+                    <span class="input-group-addon cursor" style="background-color:#cmdColor#;width:70%;border-radius: 10px;">
+                        <span class="fa fa-calendar" style="color:white"></span>
+                    </span>
+                </div>
                 </center>
 				</div>
                 <div class="cmd cmd-widget modetemp" data-type="action" data-subtype="slider" data-cmd_id="#thermostat_cmd_id#" style="width : 150px;height : 110px;display : block;">
                     <span class="pull-left iconCmd#thermostat_cmd_id#" style="position : relative;font-size: 6em;height:100px;"></span>
                     <div>
                         <div style="margin-top : 20px;" >
-                            <input type="text" class="knob" value="#consigne#" data-min="7" data-max="30" data-step="0.5" data-width="100" data-height="100"/>
+                            <input type="text" class="dial" value="#consigne#" data-min="7" data-max="30" data-step="0.5" data-width="100" data-height="100"/>
                         </div>
-                        <div style="position: relative; top: -15px; left : 120px;">
+                        <div style="cursor : default;position: relative; top: -15px; left : 120px;">
                             °C
                         </div>
                     </div>
                     <script>
                         $.include(['plugins/netatmoThermostat/core/template/dashboard/jquery.kontrol.js'], function () {
-                            $(".eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#thermostat_cmd_id#] .knob").knob({
+                            $(".eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#thermostat_cmd_id#] .dial").dial({
                                 bgColor: "#3498db",
                                 fgColor: '#FFFFFF',
                                 noScroll: true,
                                 release: function (v) {
-                                    jeedom.cmd.execute({id: '#thermostat_cmd_id#', value: {slider: v}});
+                                    jeedom.cmd.execute({id: '#thermostat_cmd_id#', value: {'title': v}});
                                 },
                                 draw: function () {
                                     setTimeout(function () {
@@ -124,11 +135,21 @@
 							$('.eqLogic[data-eqLogic_uid=#uid#] .modeplan').toggle();
 							$('.eqLogic[data-eqLogic_uid=#uid#] .modetemp').toggle();
 						});
+						$('.eqLogic[data-eqLogic_uid=#uid#] .selectCalendar').on('change', function() {
+							jeedom.cmd.execute({id: '#calendar_change#', value: {'message': $(this).value()}});
+						});
+						$(function () {
+							$('.eqLogic[data-eqLogic_uid=#uid#] .datetimepicker').datetimepicker({
+								lang: 'fr',
+								step: 15,
+								onChangeDateTime:function(dp,$input){
+								jeedom.cmd.execute({id: '#endtime_change#', value: {'message': $input.val()}});
+								}
+							});
+						});
                     </script>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-

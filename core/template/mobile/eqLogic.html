@@ -1,4 +1,5 @@
-<div class="eqLogic-widget eqLogic" style="background-color: #background_color#; #style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="mobile" >
+<div class="eqLogic-widget eqLogic" style="height : 280px;background-color: #background_color#; #style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="mobile" >
+	<link href="plugins/netatmoThermostat/core/template/mobile/bootstrap-slider.css" rel="stylesheet">
     <div>
         <span class="statusCmd" style="position : absolute;bottom : 3px;left : 20px; width : 30px;z-index: 1030;"></span>
 		<i class="icon jeedom-feu chaudiere" style="position : absolute;bottom: 3px;left: 3px;display:none;"></i>
@@ -6,7 +7,7 @@
 		<i class="fa fa-retweet cursor tooltips changecmd" title="Changer commandes" style="position : absolute;bottom: 3px;right: 3px;"></i>
         <center><strong>#name#</strong></center></br>
 		<center>
-           <span class="heatstatus" style="font-size : 1.40em; font-weight: bold;margin-left : 1px;">#temperature# °C </span>
+           <span class="heatstatus" style="font-size : 1.80em; font-weight: bold;margin-left : 1px;">#temperature# °C </span>
         </center>
                 <span class="cmd cmd-widget" data-cmd_id="#away_id#" style="display:none;"></span>
                 <span class="cmd cmd-widget" data-cmd_id="#hg_id#" style="display:none;"></span>
@@ -14,6 +15,9 @@
                 <span class="cmd cmd-widget" data-cmd_id="#off_id#" style="display:none;"></span>
                 <span class="cmd cmd-widget" data-cmd_id="#max_id#" style="display:none;"></span>
                 <span class="cmd cmd-widget" data-cmd_id="#refresh_id#" style="display:none;"></span>
+				<span class="cmd cmd-widget" data-cmd_id="#endtime_change#" style="display:none;"></span>
+				<span class="cmd cmd-widget" data-cmd_id="#calendar_change#" style="display:none;"></span>
+				<span class="cmd cmd-widget" data-cmd_id="#thermostat_cmd_id#" style="display:none;"></span>
 				<center>
                 <i class="fa fa-cog program cursor" title="Mettre le thermostat en mode automatique" style="font-size: 1.8em;margin-left: 5px;color:#3498db"></i>
                 <i class="icon jeedom-mouvement away cursor" title="Mettre le thermostat en mode absent" style="font-size: 1.8em;margin-left: 2px;color:#3498db"></i>
@@ -72,29 +76,35 @@
                 </script>
 				<div class="modeplan" style="display : none;">
 				<center>
-                    <span class="heatstatus" style="font-size : 1.10em; font-weight: bold;margin-left : 5px;"><i class="fa fa-signal"></i> #wifistatus# <i class="fa fa-rss"></i> #rfstatus# </span>
+					<select class="cmd form-control selectCalendar" style="background-color:#cmdColor#;width:100%;color:white;">
+							#calendar_selector#
+					</select>
+					<i class="icon divers-circular114"></i><input type="datetime-local" style="background-color:#cmdColor#;width:100%;color:white;" onchange="jeedom.cmd.execute({id: '#endtime_change#', value: {'message': this.value}});">
                 </center>
 				</div>
 				<center>
-                <div class="cmd cmd-widget modetemp" data-type="action" data-subtype="slider" data-cmd_id="#thermostat_cmd_id#" style="width : 100px;height : 110px;display : block;">
-                    <div style="margin-top : 5px;" >
-                            <input type="text" class="dial" data-role="none" value="#consigne#" data-min="7" data-max="30" data-width="100" data-height="100"/>
-                    </div>
+				<div class="modetemp">
+					<span id="sliderval#thermostat_cmd_id#" style="font-size : 2.5em; font-weight: bold;">#consigne#</span>°C</br>
+					<input id="slider#thermostat_cmd_id#" type="text" data-slider-min="7" data-slider-max="30" data-slider-step="0.5" data-slider-value="#consigne#"  data-slider-tooltip="hide" style="width : 75%;">
+					<span class="heatstatus" style="cursor :default;font-size : 1.10em; font-weight: bold;margin-left : 5px;"><i class="fa fa-signal"></i> #wifistatus# <i class="fa fa-rss"></i> #rfstatus# <i class="fa fa-battery-full"></i> #batterie#</span>
+				</div>
                     <script>
-                        $.include(['plugins/netatmoThermostat/core/template/mobile/jquery.kontrol.js'], function () {
-                        $(".eqLogic[data-eqLogic_uid=#uid#] .cmd[data-thermostat_id=#thermostat_cmd_id#] .dial").dial({
-                            bgColor: "#3498db",
-                            fgColor: '#FFFFFF',
-                            noScroll: true,
-                            change: function (v) {
-                                jeedom.cmd.execute({id: '#thermostat_cmd_id#', value: {slider: v}});
-                            },
-                        });
-                    });
-						$('.eqLogic[data-eqLogic_uid=#uid#] .changecmd').on('click', function () {
+					$.include(['plugins/netatmoThermostat/core/template/mobile/bootstrap-slider.js'], function (){
+						$("#slider#thermostat_cmd_id#").bootstrapSlider();
+						$("#slider#thermostat_cmd_id#").on("slide", function(slideEvt) {
+							$("#sliderval#thermostat_cmd_id#").text(slideEvt.value);
+						});
+						$("#slider#thermostat_cmd_id#").on("slideStop", function(slideEvt) {
+							jeedom.cmd.execute({id: '#thermostat_cmd_id#', value: {'title': slideEvt.value}});
+						});
+					});
+					$('.eqLogic[data-eqLogic_uid=#uid#] .changecmd').on('click', function () {
 							$('.eqLogic[data-eqLogic_uid=#uid#] .modeplan').toggle();
 							$('.eqLogic[data-eqLogic_uid=#uid#] .modetemp').toggle();
 						});
+					$('.eqLogic[data-eqLogic_uid=#uid#] .selectCalendar').on('change', function() {
+						jeedom.cmd.execute({id: '#calendar_change#', value: {'message': $(this).value()}});
+					});
                     </script>
 				</div>
         </center>

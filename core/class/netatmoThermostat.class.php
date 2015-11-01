@@ -692,6 +692,10 @@ class netatmoThermostat extends eqLogic {
 
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
+			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
+			if ($cmd->getIsHistorized() == 1) {
+					$replace['#' . $cmd->getLogicalId() . '_history#'] = 'history cursor';
+				}
 		}
 		$actualcalendar = $this->getCmd(null, 'calendar')->execCmd();
 		$calendar_list_cmd = $this->getCmd(null, 'listcalendar');

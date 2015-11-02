@@ -112,14 +112,6 @@
                                 noScroll: true,
                                 release: function (v) {
                                     jeedom.cmd.execute({id: '#thermostat_cmd_id#', value: {'title': v}});
-                                },
-                                draw: function () {
-                                    setTimeout(function () {
-                                        $(".eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#id#] .knob").css('margin-top', '0px');
-                                        setTimeout(function () {
-                                            $(".eqLogic[data-eqLogic_uid=#uid#] .cmd[data-cmd_id=#id#] .knob").css('margin-top', '33px');
-                                        }, 100);
-                                    }, 200);
                                 }
                             });
 

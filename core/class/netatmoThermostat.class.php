@@ -292,6 +292,8 @@ class netatmoThermostat extends eqLogic {
 								$batterylevel = round(($batterie - 3000) / 15);
 								if ($batterylevel < 0) {
 									$batterylevel = 0;
+								} else if ($batterylevel > 100) {
+									$batterylevel = 100;
 								}
 								$eqLogic->batteryStatus($batterylevel);
 								$value=$batterylevel;
@@ -317,7 +319,7 @@ class netatmoThermostat extends eqLogic {
 		foreach ($devicelist['devices'] as $thermostat) {
 			$deviceid=$thermostat['_id'];
 			$devicefirm=$thermostat['firmware'];
-			$module_name=$thermostat['modules'][0]['module_name'];
+			$module_name=$thermostat['station_name'];
 			$modulefirm=$thermostat['modules'][0]['firmware'];
 			$moduleid=$thermostat['modules'][0]['_id'];
 			$multiId = $deviceid . '|' . $moduleid;

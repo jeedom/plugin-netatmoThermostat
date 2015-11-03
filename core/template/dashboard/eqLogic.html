@@ -1,12 +1,13 @@
-<div class="eqLogic-widget eqLogic" style="width: 330px;background-color: #background_color#; #style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard" >
+<div class="eqLogic-widget eqLogic" style="width: 330px;max-height: 160px;background-color: #background_color#;#style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="dashboard" >
     <div>
         <span class="statusCmd" style="position : absolute;bottom : 3px;left : 5px; width : 30px;z-index: 1030;"></span>
         <i class='fa fa-refresh pull-right cursor refresh tooltips' title="Rafraîchir" style="margin-top: 3px;margin-right: 3px;"></i>
 		<i class="icon jeedom-feu chaudiere tooltips" title="Chaudière en chauffe" style="position : absolute;top: 3px;left: 3px;display:none;"></i>
-		<i class="fa fa-retweet cursor tooltips changecmd" title="Changer commandes" style="position : absolute;bottom: 3px;right: 3px;"></i>
-        <center><strong><a href="#eqLink#" style="font-size : 1.1em;"> #name# </a></strong></center>
+		<i class="icon divers-circular114 anticipation tooltips" title="Anticipation en cours" style="position : absolute;top: 3px;left: 20px;display:none;"></i>
+		<i class="fa fa-retweet cursor tooltips changecmd" title="Changer commandes" style="position : absolute;bottom: 3px;right: 3px;z-index: 1030;"></i>
+       <center class="widget-name"><a href="#eqLink#" style="font-size : 1.3em;">#name#</a></center>
 
-        <div class="row">
+        <div class="row" style="margin-top: -10px">
             <div class="col-xs-6">
                 <br/>
                 <center>
@@ -28,8 +29,8 @@
                 <i class="fa fa-times off cursor tooltips" title="Eteindre le thermostat" style="font-size: 1.9em;margin-left: 5px;color:#3498db"></i>
 				<br/>
 				
-                <span class="planning tooltips" style="cursor:default;font-size: 1em;margin-left: 5px;margin-top: 5px;"  title="Planning en cours"></span>
-                <span class="calendar tooltips" style="cursor:default;font-size: 1em;position: relative;top: -2px;left: 5px;"  title="Calendrier en cours"></span>
+                <span class="planning tooltips" style="cursor:default;font-size: 0.9em;margin-left: 5px;margin-top: 5px;"  title="Planning en cours"></span>
+                <span class="calendar tooltips" style="cursor:default;font-size: 0.9em;position: relative;top: -2px;left: 5px;"  title="Calendrier en cours"></span>
 
                 <script>
                     $('.eqLogic[data-eqLogic_uid=#uid#] .refresh').on('click', function () {
@@ -76,6 +77,9 @@
 					if (#consigne#>#temperature#) {
 							$('.eqLogic[data-eqLogic_uid=#uid#] .chaudiere').css('display', 'block');
 					}
+					if (#anticipation# == 1) {
+							$('.eqLogic[data-eqLogic_uid=#uid#] .anticipation').css('display', 'block');
+					}
                 </script>
             </div>
             <div class="col-xs-6">
@@ -98,9 +102,9 @@
                     <span class="pull-left iconCmd#thermostat_cmd_id#" style="position : relative;font-size: 6em;height:100px;"></span>
                     <div>
                         <div style="margin-top : 20px;" >
-                            <input type="text" class="dial #consigne_history# tooltips" data-cmd_id="#consigne_id#" value="#consigne#" data-min="7" data-max="30" data-step="0.5" data-width="100" data-height="100"  title="Consigne"/>
+                            <input type="text" class="dial #consigne_history# tooltips" data-cmd_id="#consigne_id#" value="#consigne#" data-min="7" data-max="30" data-step="0.5" data-width="110" data-height="110"  title="Consigne"/>
                         </div>
-                        <div style="cursor : default;position: relative; top: -15px; left : 120px;">
+                        <div style="cursor : default;position: relative; top: -15px; left : 125px;">
                             °C
                         </div>
                     </div>

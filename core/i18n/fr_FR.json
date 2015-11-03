@@ -40,7 +40,8 @@
         "Réglage Calendrier": "Réglage Calendrier",
         "Id Calendrier": "Id Calendrier",
         "Timestamp de fin": "Timestamp de fin",
-        "Réglage Fin": "Réglage Fin"
+        "Réglage Fin": "Réglage Fin",
+        "Anticipation en cours": "Anticipation en cours"
     },
     "plugins\/netatmoThermostat\/desktop\/php\/netatmoThermostat.php": {
         "Rechercher": "Rechercher",

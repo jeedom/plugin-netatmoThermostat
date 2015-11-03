@@ -19,6 +19,8 @@
 require_once dirname(__FILE__) . '/../../../core/php/core.inc.php';
 
 function netatmoThermostat_update() {
-	
+	foreach (eqLogic::byType('netatmoThermostat') as $netatmoThermostat) {
+        $netatmoThermostat->save();
+    }
 }
 ?>

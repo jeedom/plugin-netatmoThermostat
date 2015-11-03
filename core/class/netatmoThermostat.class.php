@@ -125,6 +125,10 @@ class netatmoThermostat extends eqLogic {
 			}
 			$temperature_thermostat = $thermostat["modules"][0]["measured"]["temperature"];
 			$wifistatus=$thermostat["wifi_status"];
+			$anticipation=0;
+			if (isset($thermostat["modules"][0]["anticipating"])) {
+				$anticipation =$thermostat["modules"][0]["anticipating"];
+			}
 			$devicefirm=$thermostat["firmware"];
 			$modulefirm=$thermostat["modules"][0]["firmware"];
 			$eqLogic->setConfiguration('devicefirm', $devicefirm);
@@ -211,7 +215,11 @@ class netatmoThermostat extends eqLogic {
                 foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"] as $zone) {
                     if ($zone["id"]== $planning_id) {
                         $planning=$zone["name"];
-                        $consigne=$zone["temp"];
+                        if (isset($thermostat["modules"][0]["measured"]["setpoint_temp"])) {
+                             $consigne=$thermostat["modules"][0]["measured"]["setpoint_temp"];
+                        } else {
+                             $consigne=$zone["temp"];
+                        }
                     } else if ($zone["id"]== $nextplanning_id) {
                         $nextplanning=$zone["name"];
                     }
@@ -287,6 +295,9 @@ class netatmoThermostat extends eqLogic {
 							break;
 							case 'Fin Mode en Cours':
 								$value=$setpointmode_endtime;
+							break;
+							case 'Anticipation en cours':
+								$value=$anticipation;
 							break;
 							case 'Batterie':
 								$batterylevel = round(($batterie - 3000) / 15);
@@ -455,6 +466,18 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('nextplanning');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
+			$netatmoThermostatcmd->setEventOnly(1);
+			$netatmoThermostatcmd->save();
+			
+			$netatmoThermostatcmd = $this->getCmd(null, 'anticipation');
+			if (!is_object($netatmoThermostatcmd)) {
+				$netatmoThermostatcmd = new netatmoThermostatcmd();
+				$netatmoThermostatcmd->setName(__('Anticipation en cours', __FILE__));
+			}
+			$netatmoThermostatcmd->setEqLogic_id($this->getId());
+			$netatmoThermostatcmd->setLogicalId('anticipation');
+			$netatmoThermostatcmd->setType('info');
+			$netatmoThermostatcmd->setSubType('binary');
 			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
@@ -742,6 +765,22 @@ class netatmoThermostat extends eqLogic {
 		
 		$dureeset = $this->getCmd(null, 'dureeset');
 		$replace['#endtime_change#'] = $dureeset->getId();
+		
+		if (($_version == 'dview' || $_version == 'mview') && $this->getDisplay('doNotShowNameOnView') == 1) {
+			$replace['#name#'] = '';
+			$replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
+		}
+		if (($_version == 'mobile' || $_version == 'dashboard') && $this->getDisplay('doNotShowNameOnDashboard') == 1) {
+			$replace['#name#'] = '<br/>';
+			$replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
+		}
+		
+		$parameters = $this->getDisplay('parameters');
+		if (is_array($parameters)) {
+			foreach ($parameters as $key => $value) {
+				$replace['#' . $key . '#'] = $value;
+			}
+		}
 		
 		$html = template_replace($replace, getTemplate('core', $_version, 'eqLogic', 'netatmoThermostat'));
 		cache::set('netatmoThermostat' . $_version . $this->getId(), $html, 0);

@@ -1,6 +1,6 @@
-= Netatmo
+= Netatmo Thermostat
 
-Plugin permettant de récupérer les informations des stations météo Netatmo.
+Plugin permettant de controller les thermostats Netatmo
 
 include::configuration.asciidoc[]
 

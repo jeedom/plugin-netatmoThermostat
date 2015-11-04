@@ -215,7 +215,7 @@ class netatmoThermostat extends eqLogic {
                 foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"] as $zone) {
                     if ($zone["id"]== $planning_id) {
                         $planning=$zone["name"];
-                        if (isset($thermostat["modules"][0]["measured"]["setpoint_temp"])) {
+                        if (isset($thermostat["modules"][0]["measured"]["setpoint_temp"]) && $anticipation == true) {
                              $consigne=$thermostat["modules"][0]["measured"]["setpoint_temp"];
                         } else {
                              $consigne=$zone["temp"];

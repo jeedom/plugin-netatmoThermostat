@@ -1,9 +1,9 @@
 <div class="eqLogic-widget eqLogic" style="min-height : 250px;background-color: #background_color#; #style#" data-eqLogic_id="#id#" data-eqLogic_uid="#uid#" data-version="mobile" >
 	<link href="plugins/netatmoThermostat/core/template/mobile/bootstrap-slider.css" rel="stylesheet">
     <div>
-        <span class="statusCmd" style="position : absolute;bottom : 3px;left : 20px; width : 30px;z-index: 1030;"></span>
-		<i class="icon jeedom-feu chaudiere" style="position : absolute;bottom: 3px;left: 3px;display:none;"></i>
-		<i class="icon divers-circular114 anticipation" style="position : absolute;bottom: 3px;left: 20px;display:none;"></i>
+        <span class="statusCmd" style="position : absolute;bottom : 1px;left : 38px; width : 30px;z-index: 1030;"></span>
+		<i class="icon jeedom-feu chaudiere" style="position : absolute;bottom: 3px;left: 3px;color:#3498db;"></i>
+		<i class="icon divers-circular114 anticipation" style="position : absolute;bottom: 3px;left: 20px;color:#3498db;"></i>
         <i class='fa fa-refresh pull-right cursor refresh' style="margin-top: 3px;margin-right: 3px;"></i>
 		<i class="fa fa-retweet cursor tooltips changecmd" title="Changer commandes" style="position : absolute;bottom: 3px;right: 3px;"></i>
         <center class="widget-name">#name#</center>
@@ -72,10 +72,10 @@
 						$('.eqLogic[data-eqLogic_uid=#uid#] .planning').css('display', 'block');
 					}
 					if (#consigne#>#temperature#) {
-							$('.eqLogic[data-eqLogic_uid=#uid#] .chaudiere').css('display', 'block');
+							$('.eqLogic[data-eqLogic_uid=#uid#] .chaudiere').css('color', 'white');
 					}
 					if (#anticipation# == 1) {
-							$('.eqLogic[data-eqLogic_uid=#uid#] .anticipation').css('display', 'block');
+							$('.eqLogic[data-eqLogic_uid=#uid#] .anticipation').css('display', 'white');
 					}
                 </script>
 				<div class="modeplan" style="display : none;">
@@ -99,7 +99,7 @@
 						$(".eqLogic[data-eqLogic_uid=#uid#] .spanConsigne").text(slideEvt.value);
 					});
 						$(".eqLogic[data-eqLogic_uid=#uid#] .sliderConsigne").on("slideStop", function(slideEvt) {
-							jeedom.cmd.execute({id: '#thermostat_cmd_id#', value: {'message': slideEvt.value}});
+							jeedom.cmd.execute({id: '#thermostat_cmd_id#', value: {'title': slideEvt.value}});
 						});
 					});
 					$('.eqLogic[data-eqLogic_uid=#uid#] .changecmd').on('click', function () {

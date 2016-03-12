@@ -206,15 +206,25 @@ class netatmoThermostat extends eqLogic {
                     } 
                 }
                 if ($idfound == 99) {
-                    $planning_id = $thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][count($thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"])]["id"];
-                    $nextplanning_id =$thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][0]["id"];
+                    if (count($thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"] == 1)) {
+                        $minutes = 0;
+                        $planning_id =$thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][0]["id"];
+                        $nextplanning_id =$thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][0]["id"];
+                    } else {
+                        $planning_id = $thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][count($thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"])]["id"];
+                        $nextplanning_id =$thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][0]["id"];
+                    }
                 } else {
                     $planning_id = $thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][$goodkey-1]["id"];
                     $nextplanning_id =$thermostat["modules"][0]["therm_program_list"][$planindex]["timetable"][$goodkey]["id"];
                 }
                 foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"] as $zone) {
                     if ($zone["id"]== $planning_id) {
-                        $planning=$zone["name"];
+                        if (isset($zone["name"])) {
+                            $planning=$zone["name"];
+                        } else {
+                            $planning = 'Aucun';
+                        }
                         if (isset($thermostat["modules"][0]["measured"]["setpoint_temp"]) && $anticipation == true) {
                              $consigne=$thermostat["modules"][0]["measured"]["setpoint_temp"];
                         } else {
@@ -236,6 +246,9 @@ class netatmoThermostat extends eqLogic {
 				if ($minute<=9) {$zero='0';}
 				if ($heure<=9) {$zeroh='0';}
 				$setpointmode_endtime=$zeroh.$heure.':'.$zero.$minute;
+                if ($setpointmode_endtime=='00:00') {
+                    $setpointmode_endtime = '';
+                }
 				$modename = 'Programme';
 			} elseif ($mode=='off') {
 				$consigne = 0;
@@ -765,6 +778,9 @@ class netatmoThermostat extends eqLogic {
 		
 		$dureeset = $this->getCmd(null, 'dureeset');
 		$replace['#endtime_change#'] = $dureeset->getId();
+		
+		$anticipation = $this->getCmd(null, 'anticipation')->execCmd();
+		$replace['#anticipation#'] = $anticipation;
 		
 		if (($_version == 'dview' || $_version == 'mview') && $this->getDisplay('doNotShowNameOnView') == 1) {
 			$replace['#name#'] = '';

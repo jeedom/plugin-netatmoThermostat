@@ -2,9 +2,9 @@
     <div>
         <span class="statusCmd" style="position : absolute;bottom : 3px;left : 5px; width : 30px;z-index: 1030;"></span>
         <i class='fa fa-refresh pull-right cursor refresh tooltips' title="Rafraîchir" style="margin-top: 3px;margin-right: 3px;"></i>
-		<i class="#heatstatus_history# icon jeedom-feu chaudiere tooltips" data-cmd_id="#heatstatus_id#" title="Chaudière arrêtée" style="position : absolute;top: 3px;left: 3px;color:#3498db;"></i>
-		<i class="icon divers-circular114 anticipation tooltips" title="Pas d'anticipation en cours" style="position : absolute;top: 3px;left: 20px;color:#3498db;"></i>
-		<i class="fa fa-retweet cursor tooltips changecmd" title="Changer commandes" style="position : absolute;bottom: 3px;right: 3px;z-index: 1030;"></i>
+		<i class="#heatstatus_history# icon jeedom-feu chaudiere tooltips noRefresh" data-cmd_id="#heatstatus_id#" title="Chaudière arrêtée" style="position : absolute;top: 3px;left: 3px;color:#3498db;"></i>
+		<i class="icon divers-circular114 anticipation tooltips noRefresh" title="Pas d'anticipation en cours" style="position : absolute;top: 3px;left: 20px;color:#3498db;"></i>
+		<i class="fa fa-retweet cursor tooltips changecmd noRefresh" title="Changer commandes" style="position : absolute;bottom: 3px;right: 3px;z-index: 1030;"></i>
        <center class="widget-name"><a href="#eqLink#" style="font-size : 1.3em;">#name#</a></center>
 
         <div class="row" style="margin-top: -10px">
@@ -87,7 +87,7 @@
             <div class="col-xs-6">
 				<div class="modeplan" style="display : none;margin-top : 10px">
 				<center>
-                    <span class="heatstatus" style="font-size : 1.10em; font-weight: bold;margin-left : 5px;cursor : default;"><i class="fa fa-signal #wifistatus_history# tooltips" data-cmd_id="#wifistatus_id#" style="font-size : 1.10em; font-weight: bold;"  title="Signal Wifi"> #wifistatus#</i> <i class="fa fa-rss #rfstatus_history# tooltips" data-cmd_id="#rfstatus_id#" style="font-size : 1.10em; font-weight: bold;"  title="Signal radio"> #rfstatus#</i> <i class="fa fa-battery-full #batterie_history# tooltips" data-cmd_id="#batterie_id#" style="font-size : 1.10em; font-weight: bold;"  title="Niveau de batterie"> #batterie#</i></span>
+                    <span class="heatstatus" style="font-size : 1.10em; font-weight: bold;margin-left : 5px;cursor : default;"><i class="fa fa-signal #wifistatus_history# tooltips" data-cmd_id="#wifistatus_id#" style="font-size : 1.10em;"  title="Signal Wifi"> </i> <span style="font-size: 1.1em">#wifistatus#</span> <i class="fa fa-rss #rfstatus_history# tooltips" data-cmd_id="#rfstatus_id#" style="font-size : 1.10em;"  title="Signal radio"> </i> <span style="font-size: 1.1em">#rfstatus#</span> <i class="fa fa-battery-full #batterie_history# tooltips" data-cmd_id="#batterie_id#" style="font-size : 1.10em;"  title="Niveau de batterie"> </i> <span style="font-size: 1.1em">#batterie#</span></span>
 					</br>
 					<select class="cmd form-control selectCalendar cursor tooltips" style="background-color:#cmdColor#;width:70%;color:white;border-radius: 10px;" title="Choisir Calendrier">
 							#calendar_selector#
@@ -104,7 +104,7 @@
                     <span class="pull-left iconCmd#thermostat_cmd_id#" style="position : relative;font-size: 6em;height:100px;"></span>
                     <div>
                         <div style="margin-top : 20px;" >
-                            <input type="text" class="dial #consigne_history# tooltips" data-cmd_id="#consigne_id#" value="#consigne#" data-min="7" data-max="30" data-step="0.5" data-width="110" data-height="110"  title="Consigne"/>
+                            <input type="text" class="dial #consigne_history# tooltips noRefresh" data-cmd_id="#consigne_id#" value="#consigne#" data-min="7" data-max="30" data-step="0.5" data-width="110" data-height="110"  title="Consigne"/>
                         </div>
                         <div style="cursor : default;position: relative; top: -15px; left : 125px;">
                             °C

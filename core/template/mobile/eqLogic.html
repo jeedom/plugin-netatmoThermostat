@@ -90,7 +90,7 @@
 				<div class="modetemp">
 					<span class="spanConsigne" style="font-size : 2.5em; font-weight: bold;">#consigne#</span>°C</br>
 					<input class="sliderConsigne" type="text" data-slider-min="7" data-slider-max="30" data-slider-step="0.5" data-slider-value="#consigne#"  data-slider-tooltip="hide" style="width : 75%;">
-					<span class="heatstatus" style="cursor :default;font-size : 1.10em; font-weight: bold;margin-left : 5px;"><i class="fa fa-signal"></i> #wifistatus# <i class="fa fa-rss"></i> #rfstatus# <i class="fa fa-battery-full"></i> #batterie#</span>
+					<span class="heatstatus" style="font-size : 1.10em; font-weight: bold;margin-left : 5px;cursor : default;"><i class="fa fa-signal #wifistatus_history#" data-cmd_id="#wifistatus_id#" style="font-size : 1.10em;"> </i> <span style="font-size: 1.1em">#wifistatus#</span> <i class="fa fa-rss #rfstatus_history#" data-cmd_id="#rfstatus_id#" style="font-size : 1.10em;"> </i> <span style="font-size: 1.1em">#rfstatus#</span> <i class="fa fa-battery-full #batterie_history#" data-cmd_id="#batterie_id#" style="font-size : 1.10em;"> </i> <span style="font-size: 1.1em">#batterie#</span></span>
 				</div>
                     <script>
 					$.include(['plugins/netatmoThermostat/core/template/mobile/bootstrap-slider.js'], function (){

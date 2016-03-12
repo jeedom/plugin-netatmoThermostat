@@ -65,11 +65,23 @@
         "Durée Mode Max par défaut": "Durée Mode Max par défaut",
         "Durée en minutes (60 par défaut)": "Durée en minutes (60 par défaut)",
         "Information": "Information",
-        "Durée Mode Max\/Manuel par défaut": "Durée Mode Max\/Manuel par défaut"
+        "Durée Mode Max\/Manuel par défaut": "Durée Mode Max\/Manuel par défaut",
+        "Gestion": "Gestion",
+        "Santé": "Santé"
     },
     "plugins\/netatmoThermostat\/desktop\/js\/netatmoThermostat.js": {
         "Nom": "Nom",
         "Historiser": "Historiser",
-        "Tester": "Tester"
+        "Tester": "Tester",
+        "Santé SmarterCoffee": "Santé SmarterCoffee",
+        "Santé NetatmoThermostat": "Santé NetatmoThermostat"
+    },
+    "plugins\/netatmoThermostat\/desktop\/modal\/health.php": {
+        "Module": "Module",
+        "ID": "ID",
+        "IP": "IP",
+        "Date création": "Date création",
+        "Adresses Macs": "Adresses Macs",
+        "Firmwares": "Firmwares"
     }
 }

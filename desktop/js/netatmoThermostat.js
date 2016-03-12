@@ -14,6 +14,10 @@
 * You should have received a copy of the GNU General Public License
 * along with Jeedom. If not, see <http://www.gnu.org/licenses/>.
 */
+ $('#bt_healthnetatmothermostat').on('click', function () {
+    $('#md_modal').dialog({title: "{{Santé NetatmoThermostat}}"});
+    $('#md_modal').load('index.php?v=d&plugin=netatmoThermostat&modal=health').dialog('open');
+});
 
 function addCmdToTable(_cmd) {
     if (!isset(_cmd)) {

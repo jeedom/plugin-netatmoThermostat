@@ -405,7 +405,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setUnite('°C');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('numeric');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
             
             $netatmoThermostatcmd = $this->getCmd(null, 'temperature');
@@ -419,7 +418,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setUnite('°C');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('numeric');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'mode');
@@ -431,7 +429,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('mode');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'modetech');
@@ -443,7 +440,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('modetech');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'planning');
@@ -455,7 +451,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('planning');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'calendar');
@@ -467,7 +462,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('calendar');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'nextplanning');
@@ -479,7 +473,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('nextplanning');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'anticipation');
@@ -491,7 +484,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('anticipation');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('binary');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'listcalendar');
@@ -503,7 +495,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('listcalendar');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'rfstatus');
@@ -517,7 +508,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setUnite('%');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('numeric');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'batterie');
@@ -530,7 +520,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('batterie');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('numeric');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'endsetpoint');
@@ -543,7 +532,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('endsetpoint');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'wifistatus');
@@ -557,7 +545,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setUnite('%');
 			$netatmoThermostatcmd->setSubType('numeric');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'heatstatus');
@@ -570,7 +557,6 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('heatstatus');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('binary');
-			$netatmoThermostatcmd->setEventOnly(1);
 			$netatmoThermostatcmd->save();
             
             $refresh = $this->getCmd(null, 'refresh');

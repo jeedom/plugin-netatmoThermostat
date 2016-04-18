@@ -268,51 +268,51 @@ class netatmoThermostat extends eqLogic {
 				$modename = $mode;
 			}
 			foreach ($eqLogic->getCmd('info') as $cmd) {
-				switch ($cmd->getName()) {
-							case 'Température':
+				switch ($cmd->getLogicalId()) {
+							case 'temperature':
 								$value=$temperature_thermostat;
 							break;
-							case 'Mode':
+							case 'mode':
 								$value=$modename;
 							break;
-							case 'ModeTech':
+							case 'modetech':
 								$value=$mode;
 							break;
-							case 'Signal Wifi':
+							case 'wifistatus':
 								$value=$wifistatus;
 							break;
-							case 'Signal RF':
+							case 'rfstatus':
 								$value=$rfstatus;
 							break;
-							case 'Consigne':
+							case 'consigne':
 								if ($forcedSetpoint != null) {
 									$value=$forcedSetpoint;
 								} else {
 									$value=$consigne;
 								}
 							break;
-							case 'Planning':
+							case 'planning':
 								$value=$planning;
 							break;
-							case 'Planning suivant':
+							case 'nextplanning':
 								$value=$nextplanning;
 							break;
-							case 'Calendrier':
+							case 'calendar':
 								$value=$planningname;
 							break;
-							case 'Liste Calendrier':
+							case 'listcalendar':
 								$value=substr($listplanning, 0, -1);
 							break;
-							case 'Etat Chauffage':
+							case 'heatstatus':
 								$value=$chaudierestate;
 							break;
-							case 'Fin Mode en Cours':
+							case 'endsetpoint':
 								$value=$setpointmode_endtime;
 							break;
-							case 'Anticipation en cours':
+							case 'anticipation':
 								$value=$anticipation;
 							break;
-							case 'Batterie':
+							case 'batterie':
 								$batterylevel = round(($batterie - 3000) / 15);
 								if ($batterylevel < 0) {
 									$batterylevel = 0;
@@ -321,6 +321,21 @@ class netatmoThermostat extends eqLogic {
 								}
 								$eqLogic->batteryStatus($batterylevel);
 								$value=$batterylevel;
+							break;
+							case 'statusname':
+								if ($mode == 'away') {
+									$value= 'Jusqu\'à ' . $setpointmode_endtime;
+								} else if ($mode == 'hg') {
+									$value= 'Jusqu\'à ' . $setpointmode_endtime;
+								} else if ($mode == 'max') {
+									$value= 'Jusqu\'à ' . $setpointmode_endtime;
+								} else if ($mode == 'program') {
+									$value= $planning . ' -> ' . $nextplanning . ' ' . $setpointmode_endtime;
+								} else if ($mode == 'off') {
+									$value='Eteint';
+				                } else {
+									$value='Jusqu\'à ' . $setpointmode_endtime;
+								}
 							break;
 				}
 				$cmd->event($value);
@@ -405,6 +420,7 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setUnite('°C');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('numeric');
+			$netatmoThermostatcmd->setDisplay('generic_type', 'THERMOSTAT_SETPOINT');
 			$netatmoThermostatcmd->save();
             
             $netatmoThermostatcmd = $this->getCmd(null, 'temperature');
@@ -418,6 +434,7 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setUnite('°C');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('numeric');
+			$netatmoThermostatcmd->setDisplay('generic_type', 'THERMOSTAT_TEMPERATURE');
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'mode');
@@ -429,6 +446,7 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('mode');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('string');
+			$netatmoThermostatcmd->setDisplay('generic_type', 'THERMOSTAT_MODE');
 			$netatmoThermostatcmd->save();
 			
 			$netatmoThermostatcmd = $this->getCmd(null, 'modetech');
@@ -557,8 +575,22 @@ class netatmoThermostat extends eqLogic {
 			$netatmoThermostatcmd->setLogicalId('heatstatus');
 			$netatmoThermostatcmd->setType('info');
 			$netatmoThermostatcmd->setSubType('binary');
+			$netatmoThermostatcmd->setDisplay('generic_type', 'THERMOSTAT_STATE');
 			$netatmoThermostatcmd->save();
             
+			$netatmoThermostatcmd = $this->getCmd(null, 'statusname');
+			if (!is_object($netatmoThermostatcmd)) {
+				$netatmoThermostatcmd = new netatmoThermostatcmd();
+				$netatmoThermostatcmd->setName(__('Statut pour mobile', __FILE__));
+				$netatmoThermostatcmd->setIsHistorized(1);
+			}
+			$netatmoThermostatcmd->setEqLogic_id($this->getId());
+			$netatmoThermostatcmd->setLogicalId('statusname');
+			$netatmoThermostatcmd->setType('info');
+			$netatmoThermostatcmd->setSubType('string');
+			$netatmoThermostatcmd->setDisplay('generic_type', 'THERMOSTAT_STATE_NAME');
+			$netatmoThermostatcmd->save();
+			
             $refresh = $this->getCmd(null, 'refresh');
             if (!is_object($refresh)) {
                 $refresh = new netatmoThermostatcmd();
@@ -584,6 +616,20 @@ class netatmoThermostat extends eqLogic {
 			$away->setSubType('message');
             $away->setEqLogic_id($this->getId());
             $away->save();
+			
+			$awaymobile = $this->getCmd(null, 'awaymobile');
+            if (!is_object($awaymobile)) {
+                $awaymobile = new netatmoThermostatcmd();
+                $awaymobile->setLogicalId('awaymobile');
+                $awaymobile->setIsVisible(1);
+                $awaymobile->setName(__('Absent ', __FILE__));
+            }
+            $awaymobile->setType('action');
+            $awaymobile->setSubType('other');
+			$awaymobile->setOrder(2);
+			$awaymobile->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
+            $awaymobile->setEqLogic_id($this->getId());
+            $awaymobile->save();
             
             $program = $this->getCmd(null, 'program');
             if (!is_object($program)) {
@@ -594,6 +640,8 @@ class netatmoThermostat extends eqLogic {
             }
             $program->setType('action');
             $program->setSubType('other');
+			$program->setOrder(1);
+			$program->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
             $program->setEqLogic_id($this->getId());
             $program->save();
             
@@ -611,6 +659,20 @@ class netatmoThermostat extends eqLogic {
             $hg->setEqLogic_id($this->getId());
             $hg->save();
             
+			$hgmobile = $this->getCmd(null, 'hgmobile');
+            if (!is_object($hgmobile)) {
+                $hgmobile = new netatmoThermostatcmd();
+                $hgmobile->setLogicalId('hgmobile');
+                $hgmobile->setIsVisible(1);
+                $hgmobile->setName(__('Hors-gel ', __FILE__));
+            }
+            $hgmobile->setType('action');
+            $hgmobile->setSubType('other');
+			$hgmobile->setOrder(3);
+			$hgmobile->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
+            $hgmobile->setEqLogic_id($this->getId());
+            $hgmobile->save();
+			
             $off = $this->getCmd(null, 'off');
             if (!is_object($off)) {
                 $off = new netatmoThermostatcmd();
@@ -620,7 +682,9 @@ class netatmoThermostat extends eqLogic {
             }
             $off->setType('action');
             $off->setSubType('other');
+			$off->setOrder(5);
             $off->setEqLogic_id($this->getId());
+			$off->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
             $off->save();
             
             $max = $this->getCmd(null, 'max');
@@ -636,6 +700,20 @@ class netatmoThermostat extends eqLogic {
 			$max->setSubType('message');
             $max->setEqLogic_id($this->getId());
             $max->save();
+			
+			$maxmobile = $this->getCmd(null, 'maxmobile');
+            if (!is_object($maxmobile)) {
+                $maxmobile = new netatmoThermostatcmd();
+                $maxmobile->setLogicalId('maxmobile');
+                $maxmobile->setIsVisible(1);
+                $maxmobile->setName(__('Forcé durée par défaut', __FILE__));
+            }
+            $maxmobile->setType('action');
+            $maxmobile->setSubType('other');
+			$maxmobile->setOrder(4);
+			$maxmobile->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
+            $maxmobile->setEqLogic_id($this->getId());
+            $maxmobile->save();
 
 			$consigneset = $this->getCmd(null, 'consigneset');
             if (!is_object($consigneset)) {
@@ -650,6 +728,19 @@ class netatmoThermostat extends eqLogic {
 			$consigneset->setSubType('message');
             $consigneset->setEqLogic_id($this->getId());
             $consigneset->save();
+			
+			$consignesetmobile = $this->getCmd(null, 'consignemobile');
+            if (!is_object($consignesetmobile)) {
+                $consignesetmobile = new netatmoThermostatcmd();
+                $consignesetmobile->setLogicalId('consignemobile');
+                $consignesetmobile->setIsVisible(1);
+                $consignesetmobile->setName(__('Consigne pour appmobile', __FILE__));
+            }
+            $consignesetmobile->setType('action');
+			$consignesetmobile->setSubType('slider');
+            $consignesetmobile->setEqLogic_id($this->getId());
+			$consignesetmobile->setDisplay('generic_type', 'THERMOSTAT_SET_SETPOINT');
+            $consignesetmobile->save();
 			
 			$calendarset = $this->getCmd(null, 'calendarset');
             if (!is_object($calendarset)) {
@@ -837,6 +928,20 @@ class netatmoThermostatCmd extends cmd {
 				$endtime = time() + ($time* 60);
 				$eqLogic->changesetpointTherm($eqLogic->getLogicalId(),$temperatureset, $endtime);
 			}
+		} elseif ($action == 'awaymobile' || $action == 'hgmobile' || $action == 'maxmobile' ) {
+			if ($action == 'maxmobile') {
+				$defaultime = $eqLogic->getConfiguration('maxdefault');
+				if ($defaultime == null || $defaultime == '') {
+					$defaultime = 60;
+				}
+				$endtime = time() + ($defaultime* 60);
+				$eqLogic->changemodeTherm($eqLogic->getLogicalId(),str_replace('mobile','',$action),$endtime);
+			} else {
+				$eqLogic->changemodeTherm($eqLogic->getLogicalId(),str_replace('mobile','',$action));
+			}
+		} elseif ($action == 'consignemobile') {
+			$temperatureset = $_options['slider'];
+			$eqLogic->changesetpointTherm($eqLogic->getLogicalId(),$temperatureset);
 		} elseif ($action == 'dureeset') {
 			$dureeset = $_options['message'];
 			$timestamp = strtotime($dureeset);

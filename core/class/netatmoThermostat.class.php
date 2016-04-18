@@ -616,27 +616,13 @@ class netatmoThermostat extends eqLogic {
 			$away->setSubType('message');
             $away->setEqLogic_id($this->getId());
             $away->save();
-			
-			$awaymobile = $this->getCmd(null, 'awaymobile');
-            if (!is_object($awaymobile)) {
-                $awaymobile = new netatmoThermostatcmd();
-                $awaymobile->setLogicalId('awaymobile');
-                $awaymobile->setIsVisible(1);
-                $awaymobile->setName(__('Absent ', __FILE__));
-            }
-            $awaymobile->setType('action');
-            $awaymobile->setSubType('other');
-			$awaymobile->setOrder(2);
-			$awaymobile->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
-            $awaymobile->setEqLogic_id($this->getId());
-            $awaymobile->save();
             
             $program = $this->getCmd(null, 'program');
             if (!is_object($program)) {
                 $program = new netatmoThermostatcmd();
                 $program->setLogicalId('program');
                 $program->setIsVisible(1);
-                $program->setName(__('Programme', __FILE__));
+                $program->setName(__('Mode Auto', __FILE__));
             }
             $program->setType('action');
             $program->setSubType('other');
@@ -644,6 +630,20 @@ class netatmoThermostat extends eqLogic {
 			$program->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
             $program->setEqLogic_id($this->getId());
             $program->save();
+			
+			$awaymobile = $this->getCmd(null, 'awaymobile');
+            if (!is_object($awaymobile)) {
+                $awaymobile = new netatmoThermostatcmd();
+                $awaymobile->setLogicalId('awaymobile');
+                $awaymobile->setIsVisible(1);
+                $awaymobile->setName(__('Mode Absent', __FILE__));
+            }
+            $awaymobile->setType('action');
+            $awaymobile->setSubType('other');
+			$awaymobile->setOrder(2);
+			$awaymobile->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
+            $awaymobile->setEqLogic_id($this->getId());
+            $awaymobile->save();
             
             $hg = $this->getCmd(null, 'hg');
             if (!is_object($hg)) {
@@ -664,7 +664,7 @@ class netatmoThermostat extends eqLogic {
                 $hgmobile = new netatmoThermostatcmd();
                 $hgmobile->setLogicalId('hgmobile');
                 $hgmobile->setIsVisible(1);
-                $hgmobile->setName(__('Hors-gel ', __FILE__));
+                $hgmobile->setName(__('Mode Hors-gel ', __FILE__));
             }
             $hgmobile->setType('action');
             $hgmobile->setSubType('other');
@@ -672,6 +672,20 @@ class netatmoThermostat extends eqLogic {
 			$hgmobile->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
             $hgmobile->setEqLogic_id($this->getId());
             $hgmobile->save();
+			
+			$maxmobile = $this->getCmd(null, 'maxmobile');
+            if (!is_object($maxmobile)) {
+                $maxmobile = new netatmoThermostatcmd();
+                $maxmobile->setLogicalId('maxmobile');
+                $maxmobile->setIsVisible(1);
+                $maxmobile->setName(__('Mode Forcé', __FILE__));
+            }
+            $maxmobile->setType('action');
+            $maxmobile->setSubType('other');
+			$maxmobile->setOrder(4);
+			$maxmobile->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
+            $maxmobile->setEqLogic_id($this->getId());
+            $maxmobile->save();
 			
             $off = $this->getCmd(null, 'off');
             if (!is_object($off)) {
@@ -700,20 +714,6 @@ class netatmoThermostat extends eqLogic {
 			$max->setSubType('message');
             $max->setEqLogic_id($this->getId());
             $max->save();
-			
-			$maxmobile = $this->getCmd(null, 'maxmobile');
-            if (!is_object($maxmobile)) {
-                $maxmobile = new netatmoThermostatcmd();
-                $maxmobile->setLogicalId('maxmobile');
-                $maxmobile->setIsVisible(1);
-                $maxmobile->setName(__('Forcé durée par défaut', __FILE__));
-            }
-            $maxmobile->setType('action');
-            $maxmobile->setSubType('other');
-			$maxmobile->setOrder(4);
-			$maxmobile->setDisplay('generic_type', 'THERMOSTAT_SET_MODE');
-            $maxmobile->setEqLogic_id($this->getId());
-            $maxmobile->save();
 
 			$consigneset = $this->getCmd(null, 'consigneset');
             if (!is_object($consigneset)) {

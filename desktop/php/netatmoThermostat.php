@@ -69,10 +69,10 @@ foreach ($eqLogics as $eqLogic) {
      <fieldset>
       <legend><i class="fa fa-arrow-circle-left eqLogicAction cursor" data-action="returnToThumbnailDisplay"></i> {{Général}}<i class='fa fa-cogs eqLogicAction pull-right cursor expertModeVisible' data-action='configure'></i></legend>
       <div class="form-group">
-        <label class="col-sm-4 control-label">{{Nom du Thermsotat Netatmo}}</label>
+        <label class="col-sm-4 control-label">{{Nom du Thermostat Netatmo}}</label>
         <div class="col-sm-6">
           <input type="text" class="eqLogicAttr form-control" data-l1key="id" style="display : none;" />
-          <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom du Thermsotat Netatmo}}"/>
+          <input type="text" class="eqLogicAttr form-control" data-l1key="name" placeholder="{{Nom du Thermostat Netatmo}}"/>
         </div>
       </div>
       <div class="form-group">

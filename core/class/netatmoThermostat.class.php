@@ -26,7 +26,9 @@ class netatmoThermostat extends eqLogic {
 	/*     * *************************Attributs****************************** */
 	private static $_client = null;
 	/*     * ***********************Methode static*************************** */
-
+	
+	public static $_widgetPossibility = array('custom' => true);
+	
 	public function getClient() {
         if (self::$_client == null) {
 			self::$_client =  new NAThermApiClient(array(
@@ -71,6 +73,7 @@ class netatmoThermostat extends eqLogic {
 				$client->setToMaxMode($deviceid, $modid, $endtime);
 			break;
 		}
+		sleep(2);
 		$this->syncWithTherm($multiId);
     }
 	
@@ -90,6 +93,7 @@ class netatmoThermostat extends eqLogic {
 		log::add('netatmoThermostat', 'debug',"Setting temperature to : " . $setpoint . " for " . $length . " minutes");
 		$client = self::getClient();
 		$client->setToManualMode($deviceid, $modid, $setpoint, $endtime);
+		sleep(2);
 		$this->syncWithTherm($multiId,$setpoint);
     }
 	
@@ -100,11 +104,11 @@ class netatmoThermostat extends eqLogic {
 		log::add('netatmoThermostat', 'debug',"Setting schedule to : " . $scheduleid);
 		$client = self::getClient();
 		$client->switchSchedule($deviceid, $modid, $scheduleid);
+		sleep(2);
 		$this->syncWithTherm($multiId, null, $scheduleid);
     }
 
     public function syncWithTherm($multiId = null,$forcedSetpoint = null, $scheduleid=null) {
-		sleep(3);
 		if($multiId !== null){
 			$ids = explode('|', $multiId);
 			$deviceid= $ids[0];
@@ -341,12 +345,6 @@ class netatmoThermostat extends eqLogic {
 				$cmd->event($value);
 				log::add('netatmoThermostat','debug','set: '.$cmd->getName().' to '. $value);
 			}
-			$mc = cache::byKey('netatmoThermostatWidgetmobile' . $eqLogic->getId());
-			$mc->remove();
-			$mc = cache::byKey('netatmoThermostatWidgetdashboard' . $eqLogic->getId());
-			$mc->remove();
-			$eqLogic->toHtml('mobile');
-			$eqLogic->toHtml('dashboard');
 			$eqLogic->refreshWidget();
 		}
     }
@@ -772,39 +770,15 @@ class netatmoThermostat extends eqLogic {
 	}
 
 	public function toHtml($_version = 'dashboard') {
-		if ($this->getIsEnable() != 1) {
+		$replace = $this->preToHtml($_version);
+ 		if (!is_array($replace)) {
+ 			return $replace;
+  		}
+		$version = jeedom::versionAlias($_version);
+		if ($this->getDisplay('hideOn' . $version) == 1) {
 			return '';
 		}
-		if (!$this->hasRight('r')) {
-			return '';
-		}
-		$_version = jeedom::versionAlias($_version);
-		if ($this->getDisplay('hideOn' . $_version) == 1) {
-			return '';
-		}
-		$vcolor = 'cmdColor';
-		if ($_version == 'mobile') {
-			$vcolor = 'mcmdColor';
-		}
-		$parameters = $this->getDisplay('parameters');
-		$cmdColor = ($this->getPrimaryCategory() == '') ? '' : jeedom::getConfiguration('eqLogic:category:' . $this->getPrimaryCategory() . ':' . $vcolor);
-		if (is_array($parameters) && isset($parameters['background_cmd_color'])) {
-			$cmdColor = $parameters['background_cmd_color'];
-		}
-		$mc = cache::byKey('netatmoThermostatWidget' . $_version . $this->getId());
-		if ($mc->getValue() != '') {
-			return preg_replace("/" . preg_quote(self::UIDDELIMITER) . "(.*?)" . preg_quote(self::UIDDELIMITER) . "/", self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER, $mc->getValue());
-		}
-		$replace = array(
-			'#name#' => $this->getName(),
-			'#id#' => $this->getId(),
-			'#background_color#' => $this->getBackgroundColor($_version),
-			'#eqLink#' => ($this->hasRight('w')) ? $this->getLinkToConfiguration() : '#',
-			'#uid#' => 'netatmoThermostat' . $this->getId() . self::UIDDELIMITER . mt_rand() . self::UIDDELIMITER,
-			'#cmdColor#' => $cmdColor,
-			'#endtime#' => $this->getCmd(null,'endsetpoint')->execCmd(),
-		);
-
+		$replace['#endtime#'] = $this->getCmd(null,'endsetpoint')->execCmd();
 		foreach ($this->getCmd('info') as $cmd) {
 			$replace['#' . $cmd->getLogicalId() . '#'] = $cmd->execCmd();
 			$replace['#' . $cmd->getLogicalId() . '_id#'] = $cmd->getId();
@@ -859,24 +833,8 @@ class netatmoThermostat extends eqLogic {
 		$anticipation = $this->getCmd(null, 'anticipation')->execCmd();
 		$replace['#anticipation#'] = $anticipation;
 		
-		if (($_version == 'dview' || $_version == 'mview') && $this->getDisplay('doNotShowNameOnView') == 1) {
-			$replace['#name#'] = '';
-			$replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
-		}
-		if (($_version == 'mobile' || $_version == 'dashboard') && $this->getDisplay('doNotShowNameOnDashboard') == 1) {
-			$replace['#name#'] = '<br/>';
-			$replace['#object_name#'] = (is_object($object)) ? $object->getName() : '';
-		}
-		
-		$parameters = $this->getDisplay('parameters');
-		if (is_array($parameters)) {
-			foreach ($parameters as $key => $value) {
-				$replace['#' . $key . '#'] = $value;
-			}
-		}
-		
-		$html = template_replace($replace, getTemplate('core', $_version, 'eqLogic', 'netatmoThermostat'));
-		cache::set('netatmoThermostatWidget' . $_version . $this->getId(), $html, 0);
+		$html = template_replace($replace, getTemplate('core', $version, 'eqLogic', 'netatmoThermostat'));
+		cache::set('widgetHtml' . $version . $this->getId(), $html, 0);
 		return $html;
     }
 }

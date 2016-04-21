@@ -29,6 +29,14 @@ try {
 		netatmoThermostat::cron15();
 		ajax::success();
 	}
+	
+	if (init('action') == 'getFromWelcome') {
+		ajax::success(netatmoThermostat::getFromWelcome());
+	}
+	
+	if (init('action') == 'getFromWeather') {
+		ajax::success(netatmoThermostat::getFromWeather());
+	}
 
 	throw new Exception(__('Aucune methode correspondante à : ', __FILE__) . init('action'));
 	/*     * *********Catch exeption*************** */

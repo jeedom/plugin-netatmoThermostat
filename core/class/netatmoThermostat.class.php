@@ -50,6 +50,22 @@ class netatmoThermostat extends eqLogic {
 			}
         return self::$_client;
 	}
+	
+	public function getFromWelcome() {
+		$client_id = config::byKey('client_id', 'netatmoWelcome');
+		$client_secret = config::byKey('client_secret', 'netatmoWelcome');
+		$username = config::byKey('username', 'netatmoWelcome');
+		$password = config::byKey('password', 'netatmoWelcome');
+		return (array($client_id,$client_secret,$username,$password));
+	}
+	
+	public function getFromWeather() {
+		$client_id = config::byKey('client_id', 'netatmoWeather');
+		$client_secret = config::byKey('client_secret', 'netatmoWeather');
+		$username = config::byKey('username', 'netatmoWeather');
+		$password = config::byKey('password', 'netatmoWeather');
+		return (array($client_id,$client_secret,$username,$password));
+	}
         
 	public function changemodeTherm($multiId,$action,$endtime = NULL) {
 		$ids = explode('|', $multiId);

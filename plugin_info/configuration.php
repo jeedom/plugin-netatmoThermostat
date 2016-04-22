@@ -49,8 +49,11 @@ if (!isConnect()) {
         </div>
     </div>
 	<?php
-		$hasweather = plugin::byId('netatmoWeather');
-		$haswelcome = plugin::byId('netatmoWelcome');
+		try {
+			$hasweather = plugin::byId('netatmoWeather');
+			$haswelcome = plugin::byId('netatmoWelcome');
+		} catch (Exception $e) {
+		}
 		if (($hasweather && $hasweather->isActive()) || ($haswelcome && $haswelcome->isActive())){
 			echo '<div class="form-group">
 			<label class="col-sm-2 control-label">{{Récupérer les infos du plugin}}</label>';

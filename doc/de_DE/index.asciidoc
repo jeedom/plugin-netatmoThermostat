@@ -1,0 +1,8 @@
+= Netatmo Thermostat
+
+Plugin, um Netatmo Thermostate zu steuern 
+
+include::configuration.asciidoc[]
+
+== FAQ
+include::faq.asciidoc[]

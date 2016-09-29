@@ -1,0 +1,92 @@
+== Plugin Konfiguration
+
+Nach der Installation des Plugin, müssen Sie Ihre Netatmo Zugangsdaten eingeben : 
+
+image::../images/netatmoWeather2.png[]
+
+* *Kunden ID* : Ihre Kunden-ID (siehe Konfigurationsabschnitt)
+* *Kunden Schlüssel* : Ihr Kunden Schlüssel (siehe Konfigurationsabschnitt)
+* *Benutzername* : Benutzername Ihres Netatmo Kontos 
+* *Passwort* : Passwort Ihres Netatmo Kontos
+* *Alternatives Design verwenden* : ermöglicht ein individuelles Design zu benutzen (siehe Widget Teil)  
+* *Synchronisieren* : Jeedom synchronisiert sich mit Ihrem Netamo Konto, um Ihre  Netatmo Geräte automatisch zu erkennen. Was Sie nach dem Speichern der vorherigen Einstellungen tun müssen.
+
+== Verbindungsinformationen zurückgewinnen
+
+Um Ihre Station zu integrieren, benötigen sie eine Kunden_ID und einen Kunden_Schlüssel , der auf der Website http://dev.netatmo.com erzeugt wird.
+
+Klicken sie einmal auf Start : 
+
+image::../images/netatmoWeather10.png[]
+
+Anschließend auf "create an app"
+
+image::../images/netatmoWeather11.png[]
+
+Melden Sie sich mit Ihrer E-Mail und Passwort an
+
+image::../images/netatmoWeather12.png[]
+
+Füllen Sie die Felder "Name" und "Description" aus (was Sie hineinschreiben spielt keine Rolle) : 
+
+image::../images/netatmoWeather13.png[]
+
+Dann am Ende der Seite wählen Sie "I accept the terms of use" und klicken Sie auf "Create"
+
+image::../images/netatmoWeather14.png[]
+
+Sie erhalten dann die Kunden_ID="Client-ID" und Kunden_Schlüssel="Secret Client" zurück. Kopieren Sie die diese dann im Konfigurations Teil des Jeedom Plugin hinein (siehe vorheriges Kapitel)
+
+image::../images/netatmoWeather15.png[]
+
+== Geräte Konfiguration
+
+Die Netatmo Gerätekonfiguration ist im Menü Plugins erreichbar : 
+
+image::../images/netatmoWeather3.png[]
+
+Das sieht wie die Netatmo Plugin-Seite aus(hier bereits mit 2 Geräten): 
+
+image::../images/netatmoWeather4.png[]
+
+[TIP]
+Wie an vielen Stellen in Jeedom kann mit dem Mauszeiger ganz links, ein Menü mit Schnellzugriff aufgerufen werden (Sie können in Ihrem Profil immer sichtbar einstellen).  
+
+Sobald Sie auf ein Gerät klicken, erhalten Sie : 
+
+image::../images/netatmoWeather5.png[]
+
+Hier finden sie die ganze Konfiguration Ihrer Geräte: 
+
+* *Name des Netatmo Gerätes* : Name Ihrer Netatmo Geräte 
+* *Eltern-Objekt* : giebt an welchem Eltern Objekt das Gerät angehört
+* *aktivieren* : erlaubt, Ihr Gerät aktiv zu machen
+* *Sichtbar* : macht es auf dem Armaturenbrett sichtbar
+* *Kennung* : eindeutige Kennung des Geräts
+* *Typ* : Geräte Typ (Station, interne Sonde, externe Sonde)
+
+Im unteren Bereich finden sie eine Liste der Befehle: 
+
+* Der Name, der auf dem Armaturenbrett angezeigt wird
+* Chronik : erlaubt das Archivieren der Daten
+* Erweiterte Konfiguration (kleine Zahnräder) : zeigt die Erweiterten Konfigurationsbefehle an (Methode der Archivierung, Widget...  )
+* Test : erlaubt Befehle zu testen
+
+== Widget
+
+Das ist hier das Standard-Widget für die Station : 
+
+image::../images/netatmoWeather6.png[]
+
+Für einen Außensensor : 
+
+image::../images/netatmoWeather7.png[]
+
+Und das ist das Ergebnis im alternativen Widget Modus :
+
+image::../images/netatmoWeather8.png[]
+
+image::../images/netatmoWeather9.png[] 
+
+[TIP]
+Wenn sie den Widget Modus ändern, ist es empfehlenswert, auf Synchronisieren zu klicken, um das Ergebnis sofort zu sehen

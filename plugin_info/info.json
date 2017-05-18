@@ -1,0 +1,9 @@
+{
+	"id" : "netatmoThermostat",
+	"name" : "Netatmo Thermostat",
+	"description" : "Plugin pour contrôler son thermostat Netatmo",
+	"licence" : "AGPL",
+	"author" : "Ludovic",
+	"require" : "3.0",
+	"category" : "wellness"
+}

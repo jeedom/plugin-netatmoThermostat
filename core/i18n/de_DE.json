@@ -60,7 +60,7 @@
         "Action": "Aktion",
         "Supprimer": "Löschen",
         "Sauvegarder": "Speichern",
-        "Vous n'avez pas encore de thermostat Netatmo, aller sur Général -> Plugin et cliquez sur synchroniser pour commencer": "Vous n'avez pas encore de thermostat Netatmo, aller sur Général -> Plugin et cliquez sur synchroniser pour commencer",
+        "Vous n'avez pas encore de thermostat Netatmo, aller sur Général -> Plugin et cliquez sur synchroniser pour commencer": "Sie haben noch keinen Netatmo Thermostat, gehen Sie zu Allgemein -> Plugin und klicken Sie auf Sync, um zu starten",
         "Configuration": "Konfiguration",
         "Durée Mode Max par défaut": "Dauer-Modus Max Standard",
         "Durée en minutes (60 par défaut)": "Dauer in Minuten (Standard 60)",

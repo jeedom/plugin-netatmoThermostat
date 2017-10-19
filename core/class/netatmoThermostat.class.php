@@ -180,7 +180,12 @@ class netatmoThermostat extends eqLogic {
 			$setpointmode_endtime='Nouvel Ordre';
 			$actualdate=date('d/m/Y');
 			if ($mode=='away') {
-				$consigne = $thermostat["modules"][0]["therm_program_list"][$planindex]["zones"][2]["temp"];
+				foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"] as $listmode){
+					if ($listmode['id'] == 2) {
+						$consigne = $listmode["temp"];
+						$modename = $listmode["name"];
+					}
+				}
 				$modename = $thermostat["modules"][0]["therm_program_list"][0]["zones"][2]["name"];
 				if (isset($thermostat["modules"][0]["setpoint"]["setpoint_endtime"])){
 					if ($actualdate == $setpointmode_endtime=date('d/m/Y',$thermostat["modules"][0]["setpoint"]["setpoint_endtime"])) {
@@ -190,8 +195,12 @@ class netatmoThermostat extends eqLogic {
 					}
 				}
        }	 elseif ($mode=='hg') {
-				$consigne = $thermostat["modules"][0]["therm_program_list"][$planindex]["zones"][3]["temp"];
-				$modename =$thermostat["modules"][0]["therm_program_list"][$planindex]["zones"][3]["name"];
+				foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"] as $listmode){
+					if ($listmode['id'] == 3) {
+						$consigne = $listmode["temp"];
+						$modename = $listmode["name"];
+					}
+				}
 				if (isset($thermostat["modules"][0]["setpoint"]["setpoint_endtime"])){
 					if ($actualdate == $setpointmode_endtime=date('d/m/Y',$thermostat["modules"][0]["setpoint"]["setpoint_endtime"])) {
 						$setpointmode_endtime=date('H:i',$thermostat["modules"][0]["setpoint"]["setpoint_endtime"]);

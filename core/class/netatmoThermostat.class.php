@@ -137,6 +137,7 @@ class netatmoThermostat extends eqLogic {
 		log::add('netatmoThermostat','debug',json_encode($therminfo,true));
 		foreach ($therminfo['devices'] as $thermostat) {
 			$modename == '';
+			$consigne == '';
 			$deviceid=$thermostat['_id'];
 			$moduleid=$thermostat['modules'][0]['_id'];
 			$multiId = $deviceid . '|' . $moduleid;
@@ -182,7 +183,6 @@ class netatmoThermostat extends eqLogic {
 			$actualdate=date('d/m/Y');
 			if ($mode=='away') {
 				foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"] as $listmode){
-					log::add('netatmoThermostat','error',print_r($listmode,true));
 					if ($listmode['id'] == 2) {
 						$consigne = $listmode["temp"];
 						$modename = $listmode["name"];
@@ -196,7 +196,7 @@ class netatmoThermostat extends eqLogic {
 					}
 				}
        }	 elseif ($mode=='hg') {
-				foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"][0] as $listmode){
+				foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"] as $listmode){
 					if ($listmode['id'] == 3) {
 						$consigne = $listmode["temp"];
 						$modename = $listmode["name"];
@@ -299,6 +299,9 @@ class netatmoThermostat extends eqLogic {
 			}
 			if ($modename == '') {
 				$modename = $mode;
+			}
+			if ($consigne == '') {
+				$consigne = 1;
 			}
 			foreach ($eqLogic->getCmd('info') as $cmd) {
 				switch ($cmd->getLogicalId()) {

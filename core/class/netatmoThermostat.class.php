@@ -182,7 +182,7 @@ class netatmoThermostat extends eqLogic {
 			$actualdate=date('d/m/Y');
 			if ($mode=='away') {
 				foreach ($thermostat["modules"][0]["therm_program_list"][$planindex]["zones"] as $listmode){
-					log::('netatmoThermostat','error',print_r($listmode,true));
+					log::add('netatmoThermostat','error',print_r($listmode,true));
 					if ($listmode['id'] == 2) {
 						$consigne = $listmode["temp"];
 						$modename = $listmode["name"];

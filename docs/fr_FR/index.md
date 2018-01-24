@@ -6,8 +6,6 @@ Configuration du plugin
 Une fois le plugin installé, il vous faut renseigner vos informations de
 connexion Netatmo :
 
-![netatmoWeather2](../images/netatmoWeather2.png)
-
 -   **Client ID** : votre client ID (voir partie configuration)
 
 -   **Client secret** : votre client secret (voir partie configuration)
@@ -61,24 +59,13 @@ Configuration des équipements
 =============================
 
 La configuration des équipements Netatmo est accessible à partir du menu
-plugin :
-
-![netatmoWeather3](../images/netatmoWeather3.png)
-
-Voilà à quoi ressemble la page du plugin Netatmo (ici avec déjà 2
-équipement) :
-
-![netatmoWeather4](../images/netatmoWeather4.png)
+plugin.
 
 > **Tip**
 >
 > Comme à beaucoup d’endroits sur Jeedom, placer la souris tout à gauche
 > permet de faire apparaître un menu d’accès rapide (vous pouvez à
 > partir de votre profil le laisser toujours visible).
-
-Une fois que vous cliquez sur un équipement vous obtenez :
-
-![netatmoWeather5](../images/netatmoWeather5.png)
 
 Vous retrouvez ici toute la configuration de votre équipement :
 
@@ -108,23 +95,6 @@ En dessous vous retrouvez la liste des commandes :
 
 -   Tester : permet de tester la commande
 
-Widget 
-======
-
-Voici le widget standard pour une station :
-
-![netatmoWeather6](../images/netatmoWeather6.png)
-
-Pour une sonde extérieure :
-
-![netatmoWeather7](../images/netatmoWeather7.png)
-
-Et voila le résultat en mode widget alternatif :
-
-![netatmoWeather8](../images/netatmoWeather8.png)
-
-![netatmoWeather9](../images/netatmoWeather9.png)
-
 > **Tip**
 >
 > Lors du changement de mode de widget il est conseillé de cliquer sur
@@ -133,8 +103,7 @@ Et voila le résultat en mode widget alternatif :
 FAQ 
 ===
 
-Quelle est la fréquence de rafraichissement
-
-:   Le systeme recupère les informations toutes les 15 min.
+Quelle est la fréquence de rafraichissement ?
+Le systeme recupère les informations toutes les 15 min.
 
 

@@ -4,7 +4,7 @@
         "Aucune": "Нет"
     },
     "plugins/netatmoThermostat/plugin_info/configuration.php": {
-        "Client ID": "Client ID",
+        "Client ID": "Идентификатор клиента",
         "Client secret": "Client secret",
         "Nom d'utilisateur": "Имя пользователя",
         "Mot de passe": "Пароль",
@@ -54,7 +54,7 @@
         "Visible": "Видимый",
         "Identifiant": "Войти",
         "Firmware": "Firmware",
-        "Tableau de commandes": "Tableau de commandes",
+        "Tableau de commandes": "панель управления",
         "Nom": "Имя",
         "Option": "Опция",
         "Action": "Действие",
@@ -80,7 +80,7 @@
         "Module": "Модуль",
         "ID": "Идентификатор",
         "IP": "IP",
-        "Date création": "Date création",
+        "Date création": "дата создания",
         "Adresses Macs": "Adresses Macs",
         "Firmwares": "Firmwares"
     }

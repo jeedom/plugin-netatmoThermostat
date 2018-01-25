@@ -4,7 +4,7 @@
         "Aucune": "Tak ada"
     },
     "plugins/netatmoThermostat/plugin_info/configuration.php": {
-        "Client ID": "Client ID",
+        "Client ID": "ID pelanggan",
         "Client secret": "Client secret",
         "Nom d'utilisateur": "Nama pemakai",
         "Mot de passe": "Password",
@@ -16,7 +16,7 @@
     "plugins/netatmoThermostat/core/class/netatmoThermostat.class.php": {
         "Consigne": "Consigne",
         "Température": "Suhu",
-        "Mode": "Mode",
+        "Mode": "mode",
         "Planning": "Planning",
         "Calendrier": "Calendrier",
         "Planning suivant": "Planning suivant",
@@ -54,7 +54,7 @@
         "Visible": "Terlihat",
         "Identifiant": "Mengidentifikasi",
         "Firmware": "Firmware",
-        "Tableau de commandes": "Tableau de commandes",
+        "Tableau de commandes": "panel kontrol",
         "Nom": "Nama",
         "Option": "Pilihan",
         "Action": "Tindakan",
@@ -80,7 +80,7 @@
         "Module": "Modul",
         "ID": "ID",
         "IP": "IP",
-        "Date création": "Date création",
+        "Date création": "tanggal pembuatan",
         "Adresses Macs": "Adresses Macs",
         "Firmwares": "Firmwares"
     }

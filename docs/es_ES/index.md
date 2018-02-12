@@ -55,7 +55,7 @@ précedent)
 
 ![netatmoWeather15](../images/netatmoWeather15.png)
 
-Configuration des équipements 
+Configuración del dispositivo
 =============================
 
 La configuration des équipements Netatmo est accessible à partir du menu

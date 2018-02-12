@@ -1,6 +1,6 @@
 Plugin permettant de controller les thermostats Netatmo
 
-Configuration du plugin 
+configuración del plugin
 =======================
 
 Une fois le plugin installé, il vous faut renseigner vos informations de
@@ -100,7 +100,7 @@ A continuación encontrará la lista de ordenes :
 > Lors du changement de mode de widget il est conseillé de cliquer sur
 > synchroniser pour voir le resultat immédiatement
 
-FAQ 
+Preguntas frecuentes
 ===
 
 Quelle est la fréquence de rafraichissement ?

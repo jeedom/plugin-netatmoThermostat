@@ -71,11 +71,11 @@ You can find here the full configuration of your device :
 -   **Nom de l’équipement Netatmo** : nom de votre équipement Netatmo
 
 -   **Parent Object** : means the parent object the equipment depend
-    l’équipement
+    equipment
 
--   **Activer** : permet de rendre votre équipement actif
+-   **Enable**: makes your equipment active
 
--   **Visible** : le rend visible sur le dashboard
+-   **Visible**: makes it visible on the dashboard
 
 -   **Identifiant** : identifiant unique de l’équipement
 
@@ -92,7 +92,7 @@ En dessous vous retrouvez la liste des commandes :
     la configuration avancée de la commande (méthode
     d’historisation, widget…​)
 
--   Tester : permet de tester la commande
+-   Test: test the command
 
 > **Tip**
 >

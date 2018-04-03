@@ -23,24 +23,24 @@
         "Liste Calendrier": "Lista Calendari",
         "Signal RF": "Segnale RF",
         "Batterie": "Batteria",
-        "Heure Fin Mode en Cours": "Heure Fin Mode en Cours",
+        "Heure Fin Mode en Cours": "Fine Corsi Tempo di moda",
         "Signal Wifi": "Segnale Wifi",
-        "Etat Chauffage": "Etat Chauffage",
+        "Etat Chauffage": "Stato riscaldamento",
         "Rafraichir": "Ricarica",
         "Absent": "Assente",
         "Programme": "Programma",
-        "Hors-gel": "Hors-gel",
+        "Hors-gel": "gelo",
         "Eteindre": "Spegni",
         "Max": "Max",
         "Réglage Consigne": "Segolazione Setpoint",
         "Réglage Durée": "Impostazione Tempo",
         "ModeTech": "ModeTech",
-        "Fin Mode en Cours": "Fin Mode en Cours",
+        "Fin Mode en Cours": "Corsi Fine Fashion",
         "Durée (minutes)": "Durata (minuti)",
         "Réglage Calendrier": "Impostazione Calendari",
         "Id Calendrier": "Id Calendario",
-        "Timestamp de fin": "Timestamp de fin",
-        "Réglage Fin": "Réglage Fin",
+        "Timestamp de fin": "timestamp End",
+        "Réglage Fin": "fine Tuning",
         "Anticipation en cours": "Anticipazione attuale"
     },
     "plugins/netatmoThermostat/desktop/php/netatmoThermostat.php": {
@@ -65,7 +65,7 @@
         "Durée Mode Max par défaut": "Durata Massima modalità predefinita",
         "Durée en minutes (60 par défaut)": "Durata in minuti (predefinito 60)",
         "Information": "Informazione",
-        "Durée Mode Max/Manuel par défaut": "Durée Mode Max/Manuel par défaut",
+        "Durée Mode Max/Manuel par défaut": "Ora Modalità Max / predefinito manuale",
         "Gestion": "Gestione",
         "Santé": "Salute"
     },
@@ -73,15 +73,15 @@
         "Nom": "Nome",
         "Historiser": "Storicizza",
         "Tester": "Prova",
-        "Santé SmarterCoffee": "Santé SmarterCoffee",
-        "Santé NetatmoThermostat": "Santé NetatmoThermostat"
+        "Santé SmarterCoffee": "salute SmarterCoffee",
+        "Santé NetatmoThermostat": "salute NetatmoThermostat"
     },
     "plugins/netatmoThermostat/desktop/modal/health.php": {
         "Module": "Modulo",
         "ID": "ID",
         "IP": "IP",
-        "Date création": "Date création",
-        "Adresses Macs": "Adresses Macs",
-        "Firmwares": "Firmwares"
+        "Date création": "data di creazione",
+        "Adresses Macs": "Indirizzi Mac",
+        "Firmwares": "firmware"
     }
 }

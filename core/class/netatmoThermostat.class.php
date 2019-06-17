@@ -123,7 +123,31 @@ class netatmoThermostat extends eqLogic {
 		sleep(2);
 		$this->syncWithTherm($multiId, null, $scheduleid);
     }
-
+	//fin modif
+	public function getLastMesure($multiId = null) {
+		if($multiId != null){
+			$eqLogics[] = eqLogic::byLogicalId($multiId,'netatmoThermostat');
+			
+		}else{
+			$eqLogics=migoThermostat::byType('netatmoThermostat');
+			
+		}
+		foreach ($eqLogics as $eqLogic) {
+				$multiId = $eqLogic->getLogicalId();
+					$ids = explode('|', $multiId);
+					$deviceid= $ids[0];
+					$moduleid = $ids[1];
+					$client = self::getClient();
+					
+					$type='Temperature,Sp_Temperature';		
+					$thermmeasure[$multiId] = $client->getMeasure($deviceid, $moduleid, 'max',$type, NULL, 'last', NULL, TRUE, FALSE)[0]['value'][0];
+					log::add('netatmoThermostat','debug',  __FUNCTION__ .' thermmeasure: '.json_encode($thermmeasure,true));
+				
+		}
+			
+		return $thermmeasure;
+	}
+	//fin modif
     public function syncWithTherm($multiId = null,$forcedSetpoint = null, $scheduleid=null) {
 		if($multiId !== null){
 			$ids = explode('|', $multiId);
@@ -133,7 +157,9 @@ class netatmoThermostat extends eqLogic {
 		}else{
 			$client = self::getClient();
 			$therminfo = $client->getData();
+			
 		}
+		
 		log::add('netatmoThermostat','debug',json_encode($therminfo,true));
 		foreach ($therminfo['devices'] as $thermostat) {
 			$modename == '';
@@ -141,11 +167,25 @@ class netatmoThermostat extends eqLogic {
 			$deviceid=$thermostat['_id'];
 			$moduleid=$thermostat['modules'][0]['_id'];
 			$multiId = $deviceid . '|' . $moduleid;
+			
+			
 			$eqLogic = eqLogic::byLogicalId($multiId,'netatmoThermostat');
 			if (!is_object($eqLogic)) {
 					continue;
 			}
-			$temperature_thermostat = $thermostat["modules"][0]["measured"]["temperature"];
+			
+			//Modif Limad44
+			$thermmeasure=self::getLastMesure($multiId);
+			
+			//$temperature_thermostat = $thermostat["modules"][0]["measured"]["temperature"];
+			$temperature_thermostat = null;
+			if (isset($thermostat["modules"][0]["measured"]["temperature"])) {
+				$temperature_thermostat = $thermostat["modules"][0]["measured"]["temperature"];
+			}else{
+				$temperature_thermostat = $thermmeasure[$multiId][0];
+			}
+			//fin modif
+			
 			$wifistatus=$thermostat["wifi_status"];
 			$anticipation=0;
 			if (isset($thermostat["modules"][0]["anticipating"])) {

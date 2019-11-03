@@ -435,7 +435,7 @@ class netatmoThermostat extends eqLogic {
 			$eqLogic = netatmoThermostat::byLogicalId($multiId, 'netatmoThermostat');
 			if (!is_object($eqLogic)) {
 				$eqLogic = new self();
-                foreach (object::all() as $object) {
+                foreach (jeeObject::all() as $object) {
                     if (stristr($module_name,$object->getName())){
                         $eqLogic->setObject_id($object->getId());
                         break;

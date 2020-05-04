@@ -1,65 +1,65 @@
-
+Plugin for controlling Netatmo thermostats
 
 Plugin configuration 
 =======================
 
+Once the Plugin is installed, you need to fill in your information
+Netatmo connection :
 
- :
+-   **Client ID** : your client ID (see configuration section)
 
--   **Client ID** : 
+-   **Client secret** : your secret client (see configuration section)
 
--   **Client secret** : 
+-   **Username** : username of your netatmo account
 
--   **Username** : 
+-   **Password** : password for your Netatmo account
 
--   **Password** : 
+-   **Use alternative design** : allows to use another
+    design (see widget section)
 
--   **** : 
-    
+-   **Synchroniser** : allows you to synchronize Jeedom with your account
+    Netamo to automatically discover your Netamo equipment. AT
+    do after saving the previous settings.
 
--   **Synchronize** : 
-    
-    .
-
- 
+Retrieving connection information 
 ==========================================
 
+To integrate your station, you must have a client\_id and a
+client\_secret généré sur le site <http://dev.netatmo.com>.
 
-:>.
-
- :
+Once on click on start :
 
 ![netatmoWeather10](../images/netatmoWeather10.png)
 
-"
+Then on "create an app"
 
 ![netatmoWeather11](../images/netatmoWeather11.png)
 
-
+Identify yourself, with your email and password
 
 ![netatmoWeather12](../images/netatmoWeather12.png)
 
-
- :
+Fill in the "Name" and "Description" fields (whatever you want
+put it doesn't matter) :
 
 ![netatmoWeather13](../images/netatmoWeather13.png)
 
-"
-"
+Then at the bottom of the page check the box "I accept the terms of use"
+then click on "Create"
 
 ![netatmoWeather14](../images/netatmoWeather14.png)
 
-
-
-
+Retrieve the "CLient id" and "Secret client" information and copy the
+in the configuration part of the Plugin in Jeedom (see chapter
+previous)
 
 ![netatmoWeather15](../images/netatmoWeather15.png)
 
 Equipment configuration 
 =============================
 
-
-Plugin.
+The configuration of Netatmo equipment is accessible from the menu
+plugin.
 
 > **Tip**
 >
@@ -69,19 +69,19 @@ Plugin.
 
 Here you find all the configuration of your equipment :
 
--   **** : 
+-   **Name of the Netatmo device** : name of your Netatmo equipment
 
 -   **Parent object** : indicates the parent object to which belongs
     equipment
 
--   **Activate** : makes your equipment active
+-   **Activer** : makes your equipment active
 
 -   **Visible** : makes it visible on the dashboard
 
--   **Login** : 
+-   **Identifiant** : unique equipment identifier
 
--   **Type** : ,
-    
+-   **Type** : type of your equipment (station, indoor probe,
+    outdoor probe…)
 
 Below you find the list of orders :
 
@@ -97,13 +97,13 @@ Below you find the list of orders :
 
 > **Tip**
 >
-> 
-> 
+> When changing the widget mode it is advisable to click on
+> synchronize to see the result immediately
 
 FAQ 
 ===
 
- ?
-.
+What is the refresh rate ?
+The system retrieves information every 15 min.
 
 

@@ -6,18 +6,18 @@
         "Mot de passe": "Contraseña",
         "Récupérer les infos du plugin": "Obtener información del plugin",
         "Netatmo Welcome": "Netatmo Welcome",
-        "Netatmo Station": "",
+        "Netatmo Station": "Netatmo Station",
         "Synchroniser": "Sincronizar",
         "Synchroniser mes Thermostats": "Sincronizar mis Termostatos",
         "Synchronisation réussie": "Sincronización exitosa",
         "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "Esto recuperará los identificadores configurados en el plugin Welcome de Netatmo, será necesario guardar antes de comenzar la sincronización. ¿Quieres proceder?",
-        "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": ""
+        "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "Esto recuperará los identificadores configurados en el complemento Netatmo Weather, será necesario guardar antes de iniciar la sincronización. ¿Quieres proceder?"
     },
     "plugins\/netatmoThermostat\/desktop\/modal\/health.php": {
         "Module": "Modulo",
         "ID": "Identificación",
         "Adresses Macs": "Direcciones Macs",
-        "Firmwares": "",
+        "Firmwares": "Firmware",
         "Date création": "Fecha de creación"
     },
     "plugins\/netatmoThermostat\/desktop\/php\/netatmoThermostat.php": {
@@ -33,7 +33,7 @@
         "Supprimer": "Borrar",
         "Equipement": "Dispositivos",
         "Commandes": "Comandos",
-        "Nom du Thermostat Netatmo": "",
+        "Nom du Thermostat Netatmo": "Nombre del termostato Netatmo",
         "Objet parent": "Objeto padre",
         "Aucun": "Ninguna",
         "Activer": "Activar",
@@ -58,12 +58,12 @@
         "Aucune methode correspondante à : ": "Ningún método correspondiente a:"
     },
     "plugins\/netatmoThermostat\/core\/class\/netatmoThermostat.class.php": {
-        "Erreur sur synchro netatmo thermostat ": "",
+        "Erreur sur synchro netatmo thermostat ": "Error en termostato sincronizado de netatmo",
         "Consigne": "Consigna",
         "Température": "Temperatura",
         "Mode": "Modo",
-        "ModeTech": "",
-        "Planning": "",
+        "ModeTech": "ModeTech",
+        "Planning": "Planificacion",
         "Calendrier": "Calendario",
         "Planning suivant": "Planning siguiente",
         "Anticipation en cours": "Anticipación en curso",
@@ -73,22 +73,22 @@
         "Fin Mode en Cours": " Fin Modo activo",
         "Signal Wifi": "Señal Wifi",
         "Etat Chauffage": "Estado Calefacción",
-        "Statut pour mobile": "",
+        "Statut pour mobile": "Estado móvil",
         "Rafraichir": "Refrescar",
         "Absent": "Ausente",
         "Durée (minutes)": "Duración (minutos)",
-        "Mode Auto": "",
-        "Mode Absent": "",
-        "Hors-gel": "",
-        "Mode Hors-gel ": "",
+        "Mode Auto": "Modo automático",
+        "Mode Absent": "Modo ausente",
+        "Hors-gel": "Protección contra heladas",
+        "Mode Hors-gel ": "Modo de protección contra heladas",
         "Mode Forcé": "Modo forzado",
         "Eteindre": "Apagar",
         "Max": "Max",
         "Réglage Consigne": "Ajuste Consigna",
-        "Consigne pour appmobile": "",
+        "Consigne pour appmobile": "Instrucciones para appmobile",
         "Réglage Calendrier": "Ajuste Calendario",
         "Id Calendrier": "Id Calendario",
         "Réglage Fin": "Ajuste Fin",
-        "Timestamp de fin": ""
+        "Timestamp de fin": "Fecha y hora de finalización"
     }
 }

@@ -17,8 +17,8 @@ Netatmo-Verbindung :
 -   **Verwenden Sie ein alternatives Design** : erlaubt, einen anderen zu verwenden
     Design (siehe Widget-Abschnitt)
 
--   **Synchroniser** : ermöglicht es Ihnen, Jeedom mit Ihrem Konto zu synchronisieren
-    Netamo, um Ihre Netamo-Geräte automatisch zu erkennen. A.
+-   **Synchronize** : ermöglicht es Ihnen, Jeedom mit Ihrem Konto zu synchronisieren
+    Netamo, um Ihre Netamo-Geräte automatisch zu erkennen. A
     tun, nachdem Sie die vorherigen Einstellungen gespeichert haben.
 
 Verbindungsinformationen abrufen 
@@ -61,7 +61,7 @@ Gerätekonfiguration
 Die Konfiguration der Netatmo-Ausrüstung ist über das Menü zugänglich
 plugin.
 
-> **Tip**
+> **Spitze**
 >
 > Platzieren Sie wie an vielen Stellen in Jeedom die Maus ganz links
 > ruft ein Schnellzugriffsmenü auf (Sie können
@@ -74,13 +74,13 @@ Hier finden Sie die gesamte Konfiguration Ihrer Geräte :
 -   **Übergeordnetes Objekt** : gibt das übergeordnete Objekt an, zu dem es gehört
     Ausrüstung
 
--   **Activer** : macht Ihre Ausrüstung aktiv
+-   **Aktivieren** : macht Ihre Ausrüstung aktiv
 
--   **Visible** : macht es auf dem Dashboard sichtbar
+-   **Sichtbar** : macht es auf dem Dashboard sichtbar
 
--   **Identifiant** : eindeutige Gerätekennung
+-   **Login** : eindeutige Gerätekennung
 
--   **Type** : Art Ihrer Ausrüstung (Station, Innensonde,
+-   **Typ** : Art Ihrer Ausrüstung (Station, Innensonde,
     Außensonde…)
 
 Nachfolgend finden Sie die Liste der Bestellungen :
@@ -95,7 +95,7 @@ Nachfolgend finden Sie die Liste der Bestellungen :
 
 -   Test : Wird zum Testen des Befehls verwendet
 
-> **Tip**
+> **Spitze**
 >
 > Wenn Sie den Widget-Modus ändern, sollten Sie auf klicken
 > synchronisieren, um das Ergebnis sofort zu sehen

@@ -55,7 +55,7 @@
     },
     "plugins\/netatmoThermostat\/core\/ajax\/netatmoThermostat.ajax.php": {
         "401 - Accès non autorisé": "401 - Akses tidak sah",
-        "Aucune methode correspondante à : ": "Aucune methode correspondante à : "
+        "Aucune methode correspondante à : ": "Aucune methode correspondante à :"
     },
     "plugins\/netatmoThermostat\/core\/class\/netatmoThermostat.class.php": {
         "Erreur sur synchro netatmo thermostat ": "",

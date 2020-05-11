@@ -48,7 +48,7 @@
         "Action": "Aktion"
     },
     "plugins\/netatmoThermostat\/desktop\/js\/netatmoThermostat.js": {
-        "Santé NetatmoThermostat": "Gesundheit ",
+        "Santé NetatmoThermostat": "Gesundheit",
         "Nom": "Name",
         "Historiser": "Chronik",
         "Tester": "Test"

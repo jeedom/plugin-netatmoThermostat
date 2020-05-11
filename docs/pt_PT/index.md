@@ -17,7 +17,7 @@ Conexão Netatmo :
 -   **Usar design alternativo** : permite usar outro
     design (consulte a seção do widget)
 
--   **Synchroniser** : permite sincronizar o Jeedom com sua conta
+-   **Sincronizar** : permite sincronizar o Jeedom com sua conta
     Netamo para descobrir automaticamente seu equipamento Netamo. Um
     faça depois de salvar as configurações anteriores.
 
@@ -61,7 +61,7 @@ Configuração do equipamento
 A configuração do equipamento Netatmo pode ser acessada no menu
 plugin.
 
-> **Tip**
+> **Dica**
 >
 > Como em muitos lugares em Jeedom, coloque o mouse na extremidade esquerda
 > abre um menu de acesso rápido (você pode
@@ -74,13 +74,13 @@ Aqui você encontra toda a configuração do seu equipamento :
 -   **Objeto pai** : indica o objeto pai ao qual pertence
     o equipamento
 
--   **Activer** : torna seu equipamento ativo
+-   **Ativar** : torna seu equipamento ativo
 
--   **Visible** : torna visível no painel
+-   **Visivél** : torna visível no painel
 
--   **Identifiant** : identificador único de equipamento
+-   **Login** : identificador único de equipamento
 
--   **Type** : tipo de seu equipamento (estação, sonda interna,
+-   **Tipo** : tipo de seu equipamento (estação, sonda interna,
     sonda externa ...)
 
 Abaixo você encontra a lista de pedidos :
@@ -95,7 +95,7 @@ Abaixo você encontra a lista de pedidos :
 
 -   Teste : permite testar o comando
 
-> **Tip**
+> **Dica**
 >
 > Ao alterar o modo do widget, é recomendável clicar em
 > sincronizar para ver o resultado imediatamente

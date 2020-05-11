@@ -2,7 +2,7 @@
     "plugins\/netatmoThermostat\/plugin_info\/configuration.php": {
         "Client ID": "Muşteri ID",
         "Client secret": "Müşteri gizli şifre",
-        "Nom d'utilisateur": "Kullanıcı adı ",
+        "Nom d'utilisateur": "Kullanıcı adı",
         "Mot de passe": "Şifre",
         "Récupérer les infos du plugin": "",
         "Netatmo Welcome": "",

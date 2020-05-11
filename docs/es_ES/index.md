@@ -1,6 +1,6 @@
 Plugin para controlar termostatos Netatmo
 
-Configuración del Plugin 
+Configuración del plugin 
 =======================
 
 Una vez que se instala el complemento, debe completar su información
@@ -17,7 +17,7 @@ Conexión Netatmo :
 -   **Usa un diseño alternativo** : permite usar otro
     diseño (ver sección de widgets)
 
--   **Synchroniser** : le permite sincronizar Jeedom con su cuenta
+-   **Sincronizar** : le permite sincronizar Jeedom con su cuenta
     Netamo para descubrir automáticamente su equipo Netamo. Un
     hacer después de guardar la configuración anterior.
 
@@ -61,7 +61,7 @@ Configuración del equipo
 Se puede acceder a la configuración del equipo Netatmo desde el menú
 plugin.
 
-> **Tip**
+> **Punta**
 >
 > Como en muchos lugares de Jeedom, coloca el mouse en el extremo izquierdo
 > abre un menú de acceso rápido (puedes
@@ -74,16 +74,16 @@ Aquí encontrarás toda la configuración de tu equipo :
 -   **Objeto padre** : indica el objeto padre al que pertenece
     equipo
 
--   **Activer** : activa su equipo
+-   **Activar** : activa su equipo
 
 -   **Visible** : lo hace visible en el tablero
 
--   **Identifiant** : identificador de equipo único
+-   **Identificador** : identificador de equipo único
 
--   **Type** : tipo de su equipo (estación, sonda interior,
+-   **Tipo** : tipo de su equipo (estación, sonda interior,
     sonda exterior ...)
 
-A continuación encontrará la lista de pedidos. :
+A continuación encontrará la lista de pedidos :
 
 -   el nombre que se muestra en el tablero
 
@@ -95,7 +95,7 @@ A continuación encontrará la lista de pedidos. :
 
 -   Probar : Se usa para probar el comando
 
-> **Tip**
+> **Punta**
 >
 > Al cambiar el modo del widget, es recomendable hacer clic en
 > sincronizar para ver el resultado inmediatamente
@@ -104,6 +104,6 @@ Preguntas frecuentes
 ===
 
 ¿Cuál es la frecuencia de actualización? ?
-El sistema recupera información cada 15 minutos..
+El sistema recupera información cada 15 minutos.
 
 

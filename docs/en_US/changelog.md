@@ -1,3 +1,5 @@
+# Changelog Netatmo Thermostat
+
 # 11/03/2019
 
 - Support PHP 7.3

@@ -1,31 +1,21 @@
+# Netatmo Thermostat plugin
+
 Plugin para controle de termostatos Netatmo
 
-Configuração do plugin 
-=======================
+# Configuração do plugin 
 
-Após a instalação do plug-in, é necessário preencher suas informações
-Conexão Netatmo :
+Depois que o plug-in estiver instalado, você precisará inserir suas informações de conexão Netatmo :
 
 -   **ID do cliente** : seu ID de cliente (consulte a seção de configuração)
-
 -   **Cliente secreto** : seu cliente secreto (consulte a seção de configuração)
-
 -   **Nome de Usuário** : nome de usuário da sua conta netatmo
-
 -   **Senha** : senha para sua conta Netatmo
+-   **Usar design alternativo** : permite usar outro design (consulte a seção do widget)
+-   **Sincronizar** : permite sincronizar o Jeedom com sua conta Netamo para descobrir automaticamente seu equipamento Netamo. A fazer depois de salvar os parâmetros anteriores.
 
--   **Usar design alternativo** : permite usar outro
-    design (consulte a seção do widget)
+# Recuperando informações de conexão 
 
--   **Sincronizar** : permite sincronizar o Jeedom com sua conta
-    Netamo para descobrir automaticamente seu equipamento Netamo. Um
-    faça depois de salvar as configurações anteriores.
-
-Recuperando informações de conexão 
-==========================================
-
-Para integrar sua estação, você deve ter um cliente\_id e um
-client\_secret généré sur le site <http://dev.netatmo.com>.
+Pour intégrer votre station, vous devez posséder un client\_id et un client\_secret généré sur le site <http://dev.netatmo.com>.
 
 Uma vez clique em Iniciar :
 
@@ -39,71 +29,43 @@ Identifique-se, com seu email e senha
 
 ![netatmoWeather12](../images/netatmoWeather12.png)
 
-Preencha os campos "Nome" e "Descrição" (o que você quiser
-coloque isso não importa) :
+Preencha os campos "Nome" e "Descrição" (o que você colocar, não importa) :
 
 ![netatmoWeather13](../images/netatmoWeather13.png)
 
-Em seguida, na parte inferior da página, marque a caixa "Aceito os termos de uso"
-depois clique em "Criar"
+Em seguida, na parte inferior da página, marque a caixa "Aceito os termos de uso" e clique em "Criar"
 
 ![netatmoWeather14](../images/netatmoWeather14.png)
 
-Recupere as informações "ID do cliente" e "Cliente secreto" e copie o
-na parte de configuração do plug-in no Jeedom (consulte o capítulo
-anterior)
+Recupere as informações "ID do cliente" e "Cliente secreto" e copie-as na parte de configuração do plug-in no Jeedom (consulte o capítulo anterior)
 
 ![netatmoWeather15](../images/netatmoWeather15.png)
 
-Configuração do equipamento 
-=============================
+# Configuração do equipamento 
 
-A configuração do equipamento Netatmo pode ser acessada no menu
-plugin.
-
-> **Dica**
->
-> Como em muitos lugares em Jeedom, coloque o mouse na extremidade esquerda
-> abre um menu de acesso rápido (você pode
-> do seu perfil, deixe-o sempre visível).
+A configuração do equipamento Netatmo pode ser acessada no menu do plugin.
 
 Aqui você encontra toda a configuração do seu equipamento :
 
 -   **Nome do dispositivo Netatmo** : nome do seu equipamento Netatmo
-
--   **Objeto pai** : indica o objeto pai ao qual pertence
-    o equipamento
-
+-   **Objeto pai** : indica o objeto pai ao qual o equipamento pertence
 -   **Ativar** : torna seu equipamento ativo
-
 -   **Visivél** : torna visível no painel
-
 -   **Login** : identificador único de equipamento
-
--   **Tipo** : tipo de seu equipamento (estação, sonda interna,
-    sonda externa ...)
+-   **Tipo** : tipo de seu equipamento (estação, sonda interna, sonda externa ...)
 
 Abaixo você encontra a lista de pedidos :
 
 -   o nome exibido no painel
-
 -   Historicizar : permite historiar os dados
-
--   configuração avançada (pequenas rodas dentadas) : permite exibir
-    a configuração avançada do comando (método
-    história, widget ...)
-
+-   configuração avançada (pequenas rodas dentadas) : exibe a configuração avançada do comando (método de registro, widget etc.)
 -   Teste : permite testar o comando
 
 > **Dica**
 >
-> Ao alterar o modo do widget, é recomendável clicar em
-> sincronizar para ver o resultado imediatamente
+> Ao alterar o modo do widget, é recomendável clicar em sincronizar para ver o resultado imediatamente
 
-Faq 
-===
+# Faq 
 
-Qual é a taxa de atualização ?
+**Qual é a taxa de atualização ?**
 O sistema recupera informações a cada 15 minutos.
-
-

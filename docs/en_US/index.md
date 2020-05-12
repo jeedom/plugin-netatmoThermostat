@@ -1,31 +1,21 @@
+# Netatmo Thermostat plugin
+
 Plugin for controlling Netatmo thermostats
 
-Plugin configuration 
-=======================
+# Plugin configuration 
 
-Once the plugin is installed, you need to fill in your information
-Netatmo connection :
+Once the plugin is installed, you need to enter your Netatmo connection information :
 
 -   **Client ID** : your client ID (see configuration section)
-
 -   **Client secret** : your secret client (see configuration section)
-
 -   **Username** : username of your netatmo account
-
 -   **Password** : password for your Netatmo account
+-   **Use alternative design** : allows to use another design (see widget section)
+-   **Synchronize** : allows you to synchronize Jeedom with your Netamo account to automatically discover your Netamo equipment. To do after saving the previous parameters.
 
--   **Use alternative design** : allows to use another
-    design (see widget section)
+# Retrieving connection information 
 
--   **Synchronize** : allows you to synchronize Jeedom with your account
-    Netamo to automatically discover your Netamo equipment. AT
-    do after saving the previous settings.
-
-Retrieving connection information 
-==========================================
-
-To integrate your station, you must have a client\_id and a
-client\_secret généré sur le site <http://dev.netatmo.com>.
+Pour intégrer votre station, vous devez posséder un client\_id et un client\_secret généré sur le site <http://dev.netatmo.com>.
 
 Once on click on start :
 
@@ -39,71 +29,43 @@ Identify yourself, with your email and password
 
 ![netatmoWeather12](../images/netatmoWeather12.png)
 
-Fill in the "Name" and "Description" fields (whatever you want
-put it doesn't matter) :
+Fill in the "Name" and "Description" fields (whatever you put it doesn't matter) :
 
 ![netatmoWeather13](../images/netatmoWeather13.png)
 
-Then at the bottom of the page check the box "I accept the terms of use"
-then click on "Create"
+Then at the very bottom of the page check the box "I accept the terms of use" then click on "Create"
 
 ![netatmoWeather14](../images/netatmoWeather14.png)
 
-Retrieve the "CLient id" and "Secret client" information and copy the
-in the configuration part of the plugin in Jeedom (see chapter
-previous)
+Recover the "CLient id" and "Secret client" information and copy them in the configuration part of the plugin in Jeedom (see previous chapter)
 
 ![netatmoWeather15](../images/netatmoWeather15.png)
 
-Equipment configuration 
-=============================
+# Equipment configuration 
 
-The configuration of Netatmo equipment is accessible from the menu
-plugin.
-
-> **Tip**
->
-> As in many places on Jeedom, place the mouse on the far left
-> brings up a quick access menu (you can
-> from your profile always leave it visible).
+The configuration of Netatmo equipment is accessible from the plugin menu.
 
 Here you find all the configuration of your equipment :
 
 -   **Name of the Netatmo device** : name of your Netatmo equipment
-
--   **Parent object** : indicates the parent object to which belongs
-    equipment
-
+-   **Parent object** : indicates the parent object to which the equipment belongs
 -   **Activate** : makes your equipment active
-
 -   **Visible** : makes it visible on the dashboard
-
 -   **Login** : unique equipment identifier
-
--   **Type** : type of your equipment (station, indoor probe,
-    outdoor probe…)
+-   **Type** : type of your equipment (station, indoor probe, outdoor probe…)
 
 Below you find the list of orders :
 
 -   the name displayed on the dashboard
-
 -   Historize : allows to historize the data
-
--   advanced configuration (small notched wheels) : Displays
-    the advanced configuration of the command (method
-    history, widget…)
-
+-   advanced configuration (small notched wheels) : displays the advanced configuration of the command (logging method, widget, etc.)
 -   Test : Used to test the command
 
 > **Tip**
 >
-> When changing the widget mode it is advisable to click on
-> synchronize to see the result immediately
+> When changing the widget mode it is advisable to click on synchronize to see the result immediately
 
-FAQ 
-===
+# FAQ 
 
-What is the refresh rate ?
+**What is the refresh rate ?**
 The system retrieves information every 15 min.
-
-

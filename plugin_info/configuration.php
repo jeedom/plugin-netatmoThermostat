@@ -25,26 +25,26 @@ if (!isConnect()) {
 <form class="form-horizontal">
     <fieldset>
      <div class="form-group">
-        <label class="col-sm-2 control-label">{{Client ID}}</label>
-        <div class="col-sm-3">
+        <label class="col-xs-12 col-sm-3 control-label">{{Client ID}}</label>
+        <div class="col-xs-11 col-sm-7">
             <input type="text" class="configKey form-control" data-l1key="client_id" placeholder="Client ID"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">{{Client secret}}</label>
-        <div class="col-sm-3">
+        <label class="col-xs-12 col-sm-3 control-label">{{Client secret}}</label>
+        <div class="col-xs-11 col-sm-7">
             <input type="text" class="configKey form-control" data-l1key="client_secret" placeholder="Client Secret"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">{{Nom d'utilisateur}}</label>
-        <div class="col-sm-3">
+        <label class="col-xs-12 col-sm-3 control-label">{{Nom d'utilisateur}}</label>
+        <div class="col-xs-11 col-sm-7">
             <input type="text" class="configKey form-control" data-l1key="username" placeholder="Nom d'utilisateur"/>
         </div>
     </div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">{{Mot de passe}}</label>
-        <div class="col-sm-3">
+        <label class="col-xs-12 col-sm-3 control-label">{{Mot de passe}}</label>
+        <div class="col-xs-11 col-sm-7">
             <input type="password" class="configKey form-control" data-l1key="password" placeholder="Mot de passe"/>
         </div>
     </div>
@@ -56,24 +56,24 @@ if (!isConnect()) {
 		}
 		if (($hasweather && $hasweather->isActive()) || ($haswelcome && $haswelcome->isActive())){
 			echo '<div class="form-group">
-			<label class="col-sm-2 control-label">{{Récupérer les infos du plugin}}</label>';
+			<label class="col-xs-12 col-sm-3 control-label">{{Récupérer les infos du plugin}}</label>';
 			if (($haswelcome && $haswelcome->isActive())){
-				echo '<div class="col-lg-2">
-					<a class="btn btn-success" id="bt_getFromWelcome"><i class="fa fa-random"></i> {{Netatmo Welcome}}</a>
+				echo '<div class="col-xs-11 col-sm-7">
+					<a class="btn btn-success" id="bt_getFromWelcome"><i class="fas fa-random"></i> {{Netatmo Welcome}}</a>
 					</div>';
 			}
 			if (($hasweather && $hasweather->isActive())){
-				echo '<div class="col-lg-1">
-					<a class="btn btn-success" id="bt_getFromWeather"><i class="fa fa-random"></i> {{Netatmo Station}}</a>
+				echo '<div class="col-xs-11 col-sm-7">
+					<a class="btn btn-success" id="bt_getFromWeather"><i class="fas fa-random"></i> {{Netatmo Station}}</a>
 					</div>';
 			}
 			echo '</div>';
 		}
     ?>
     <div class="form-group">
-        <label class="col-lg-2 control-label">{{Synchroniser}}</label>
-        <div class="col-lg-2">
-        <a class="btn btn-warning" id="bt_syncWithNetatmoThermostat"><i class='fa fa-refresh'></i> {{Synchroniser mes Thermostats}}</a>
+        <label class="col-xs-12 col-sm-3 control-label">{{Synchroniser}}</label>
+        <div class="col-xs-11 col-sm-7">
+        <a class="btn btn-warning" id="bt_syncWithNetatmoThermostat"><i class='fas fa-sync'></i> {{Synchroniser mes Thermostats}}</a>
         </div>
     </div>
 </fieldset>

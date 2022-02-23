@@ -4,18 +4,18 @@
         "Client secret": "Chiave segreta",
         "Nom d'utilisateur": "Nome utente",
         "Mot de passe": "Password",
-        "Récupérer les infos du plugin": "",
-        "Netatmo Welcome": "",
-        "Netatmo Station": "",
+        "Récupérer les infos du plugin": "Récupérer les infos du plugin",
+        "Netatmo Welcome": "Netatmo Welcome",
+        "Netatmo Station": "Netatmo Station",
         "Synchroniser": "Sincronizzare",
         "Synchroniser mes Thermostats": "Sincronizza i miei termostat",
         "Synchronisation réussie": "Sincronizzazione avvenuta con successo",
-        "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "",
-        "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": ""
+        "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ?",
+        "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ?"
     },
     "plugins\/netatmoThermostat\/desktop\/modal\/health.php": {
         "Module": "Modulo",
-        "ID": "",
+        "ID": "ID",
         "Adresses Macs": "Indirizzi Mac",
         "Firmwares": "Firmware",
         "Date création": "Data di creazione"
@@ -43,7 +43,7 @@
         "Visible": "Visibile",
         "Paramètres": "Impostazioni",
         "Identifiant": "Accesso",
-        "Firmware": "",
+        "Firmware": "Firmware",
         "Durée Mode Max\/Manuel par défaut": "Ora Modalità Max \/ predefinito manuale",
         "Durée en minutes (60 par défaut)": "Durata in minuti (predefinito 60)",
         "Informations": "Informazioni",
@@ -62,11 +62,11 @@
         "Aucune methode correspondante à : ": "Nessun metodo corrispondente a:"
     },
     "plugins\/netatmoThermostat\/core\/class\/netatmoThermostat.class.php": {
-        "Erreur sur synchro netatmo thermostat ": "",
+        "Erreur sur synchro netatmo thermostat ": "Erreur sur synchro netatmo thermostat",
         "Consigne": "Ordine",
         "Température": "Temperatura",
         "Mode": "Modalità",
-        "ModeTech": "",
+        "ModeTech": "ModeTech",
         "Planning": "Pianificazione",
         "Calendrier": "Calendari",
         "Planning suivant": "Programma seguente",
@@ -77,25 +77,25 @@
         "Fin Mode en Cours": "Corsi Fine Fashion",
         "Signal Wifi": "Segnale Wifi",
         "Etat Chauffage": "Stato riscaldamento",
-        "Statut pour mobile": "",
+        "Statut pour mobile": "Statut pour mobile",
         "Rafraichir": "Aggiorna",
         "Absent": "Assente",
         "Durée (minutes)": "Durata (minuti)",
-        "Mode Auto": "",
-        "Mode Absent": "",
+        "Mode Auto": "Mode Auto",
+        "Mode Absent": "Mode Absent",
         "Hors-gel": "Gelo",
-        "Mode Hors-gel ": "",
+        "Mode Hors-gel ": "Mode Hors-gel",
         "Mode Forcé": "Modalità forzata",
         "Eteindre": "Spegni",
-        "Max": "",
+        "Max": "Max",
         "Réglage Consigne": "Segolazione Setpoint",
-        "Consigne pour appmobile": "",
+        "Consigne pour appmobile": "Consigne pour appmobile",
         "Réglage Calendrier": "Impostazione Calendari",
         "Id Calendrier": "Id Calendario",
         "Réglage Fin": "Fine Tuning",
         "Timestamp de fin": "Timestamp End"
     },
     "info.json": {
-        "Plugin pour contrôler son thermostat Netatmo.<br\/><br\/>Le plugin permet de :<br\/>-Choisir le mode de fonctionnement du thermostat (programme,max,absent,hors gel, off, consigne manuel)<br\/>-Choisir son calendrier (vacances, standard etc...)<br\/>- De connaitre la batterie et les niveaux de signals du thermostat<br\/>- De connaitre le planning actuel ainsi que le suivant (et l'heure de fin du planning actuel)<br\/>- De définir le jour et heure de fin des modes (absent, hors-gel, max et manuel)<br\/>- L'ensemble des fonctions sont disponibles via scénarios<br\/>- Les deux widgets (dashboard et mobile) permettent d'accéder à toutes ces fonctionnalités": ""
+        "Plugin pour contrôler son thermostat Netatmo.<br\/><br\/>Le plugin permet de :<br\/>-Choisir le mode de fonctionnement du thermostat (programme,max,absent,hors gel, off, consigne manuel)<br\/>-Choisir son calendrier (vacances, standard etc...)<br\/>- De connaitre la batterie et les niveaux de signals du thermostat<br\/>- De connaitre le planning actuel ainsi que le suivant (et l'heure de fin du planning actuel)<br\/>- De définir le jour et heure de fin des modes (absent, hors-gel, max et manuel)<br\/>- L'ensemble des fonctions sont disponibles via scénarios<br\/>- Les deux widgets (dashboard et mobile) permettent d'accéder à toutes ces fonctionnalités": "Plugin pour contrôler son thermostat Netatmo.<br\/><br\/>Le plugin permet de :<br\/>-Choisir le mode de fonctionnement du thermostat (programme,max,absent,hors gel, off, consigne manuel)<br\/>-Choisir son calendrier (vacances, standard etc...)<br\/>- De connaitre la batterie et les niveaux de signals du thermostat<br\/>- De connaitre le planning actuel ainsi que le suivant (et l'heure de fin du planning actuel)<br\/>- De définir le jour et heure de fin des modes (absent, hors-gel, max et manuel)<br\/>- L'ensemble des fonctions sont disponibles via scénarios<br\/>- Les deux widgets (dashboard et mobile) permettent d'accéder à toutes ces fonctionnalités"
     }
 }

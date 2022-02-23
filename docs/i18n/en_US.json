@@ -37,6 +37,7 @@
         "permet de synchroniser Jeedom avec votre compte Netamo pour découvrir automatiquement vos équipements Netamo": "allows you to synchronize Jeedom with your Netamo account to automatically discover your Netamo equipment",
         "A faire après avoir sauvegardé les paramètres précedents": "To do after saving the previous settings",
         "Recupération des informations de connexion": "Retrieving connection information",
+        "next_url=https%3A%2F%2Fdev.netatmo.com%2Fbusiness-showcase": "next_url=https%3A%2F%2Fdev.netatmo.com%2Fbusiness-showcase",
         "Une fois dessus cliquez sur \"START": "Once on it click on \"START",
         "Puis sur \"create an app": "Then on \"create an app",
         "Identifiez-vous avec votre mail et mot de passe": "Identify yourself with your email and password",

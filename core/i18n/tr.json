@@ -4,14 +4,14 @@
         "Client secret": "Müşteri gizli şifre",
         "Nom d'utilisateur": "Kullanıcı adı",
         "Mot de passe": "Şifre",
-        "Récupérer les infos du plugin": "",
-        "Netatmo Welcome": "",
-        "Netatmo Station": "",
+        "Récupérer les infos du plugin": "Récupérer les infos du plugin",
+        "Netatmo Welcome": "Netatmo Welcome",
+        "Netatmo Station": "Netatmo Station",
         "Synchroniser": "Senkeronize et",
         "Synchroniser mes Thermostats": "Termostatlarımı senkronize et",
         "Synchronisation réussie": "Sekronizasyon başarılı",
-        "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "",
-        "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": ""
+        "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ?",
+        "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ?"
     },
     "plugins\/netatmoThermostat\/desktop\/modal\/health.php": {
         "Module": "Modul",
@@ -43,7 +43,7 @@
         "Visible": "Görülebilir",
         "Paramètres": "Ayarlar ( Séçenekler )",
         "Identifiant": "Kimlik numara",
-        "Firmware": "",
+        "Firmware": "Firmware",
         "Durée Mode Max\/Manuel par défaut": "Max mod süresi\/Varsayılan değer manuel",
         "Durée en minutes (60 par défaut)": "Dakika ile süre (varsayılan değer 60)",
         "Informations": "Bilgiler",
@@ -62,11 +62,11 @@
         "Aucune methode correspondante à : ": "Aşağıdakilere karşılık gelen bir yöntem yok:"
     },
     "plugins\/netatmoThermostat\/core\/class\/netatmoThermostat.class.php": {
-        "Erreur sur synchro netatmo thermostat ": "",
+        "Erreur sur synchro netatmo thermostat ": "Erreur sur synchro netatmo thermostat",
         "Consigne": "Talimat",
         "Température": "Sıcaklık",
         "Mode": "Mod",
-        "ModeTech": "",
+        "ModeTech": "ModeTech",
         "Planning": "Planlama",
         "Calendrier": "Takvim",
         "Planning suivant": "Aşağıdaki Planlama",
@@ -77,25 +77,25 @@
         "Fin Mode en Cours": "Şuanki mod son",
         "Signal Wifi": "Wifi sinyali",
         "Etat Chauffage": "Isınma Durumu",
-        "Statut pour mobile": "",
+        "Statut pour mobile": "Statut pour mobile",
         "Rafraichir": "Yenile",
         "Absent": "Bulunmayan",
         "Durée (minutes)": "Süre (dakika)",
-        "Mode Auto": "",
-        "Mode Absent": "",
+        "Mode Auto": "Mode Auto",
+        "Mode Absent": "Mode Absent",
         "Hors-gel": "Don dışında",
-        "Mode Hors-gel ": "",
+        "Mode Hors-gel ": "Mode Hors-gel",
         "Mode Forcé": "Zorlama modu",
         "Eteindre": "Kapat",
         "Max": "Maximum",
         "Réglage Consigne": "Ayar ayar noktası",
-        "Consigne pour appmobile": "",
+        "Consigne pour appmobile": "Consigne pour appmobile",
         "Réglage Calendrier": "Takvim ayarı",
         "Id Calendrier": "Takvim ID",
         "Réglage Fin": "Ayarlar son",
         "Timestamp de fin": "Sonun zaman damgası"
     },
     "info.json": {
-        "Plugin pour contrôler son thermostat Netatmo.<br\/><br\/>Le plugin permet de :<br\/>-Choisir le mode de fonctionnement du thermostat (programme,max,absent,hors gel, off, consigne manuel)<br\/>-Choisir son calendrier (vacances, standard etc...)<br\/>- De connaitre la batterie et les niveaux de signals du thermostat<br\/>- De connaitre le planning actuel ainsi que le suivant (et l'heure de fin du planning actuel)<br\/>- De définir le jour et heure de fin des modes (absent, hors-gel, max et manuel)<br\/>- L'ensemble des fonctions sont disponibles via scénarios<br\/>- Les deux widgets (dashboard et mobile) permettent d'accéder à toutes ces fonctionnalités": ""
+        "Plugin pour contrôler son thermostat Netatmo.<br\/><br\/>Le plugin permet de :<br\/>-Choisir le mode de fonctionnement du thermostat (programme,max,absent,hors gel, off, consigne manuel)<br\/>-Choisir son calendrier (vacances, standard etc...)<br\/>- De connaitre la batterie et les niveaux de signals du thermostat<br\/>- De connaitre le planning actuel ainsi que le suivant (et l'heure de fin du planning actuel)<br\/>- De définir le jour et heure de fin des modes (absent, hors-gel, max et manuel)<br\/>- L'ensemble des fonctions sont disponibles via scénarios<br\/>- Les deux widgets (dashboard et mobile) permettent d'accéder à toutes ces fonctionnalités": "Plugin pour contrôler son thermostat Netatmo.<br\/><br\/>Le plugin permet de :<br\/>-Choisir le mode de fonctionnement du thermostat (programme,max,absent,hors gel, off, consigne manuel)<br\/>-Choisir son calendrier (vacances, standard etc...)<br\/>- De connaitre la batterie et les niveaux de signals du thermostat<br\/>- De connaitre le planning actuel ainsi que le suivant (et l'heure de fin du planning actuel)<br\/>- De définir le jour et heure de fin des modes (absent, hors-gel, max et manuel)<br\/>- L'ensemble des fonctions sont disponibles via scénarios<br\/>- Les deux widgets (dashboard et mobile) permettent d'accéder à toutes ces fonctionnalités"
     }
 }

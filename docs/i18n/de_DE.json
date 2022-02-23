@@ -37,6 +37,7 @@
         "permet de synchroniser Jeedom avec votre compte Netamo pour découvrir automatiquement vos équipements Netamo": "Mit dieser Option können Sie Jeedom mit Ihrem Netamo-Konto synchronisieren, um Ihre Netamo-Geräte automatisch zu erkennen",
         "A faire après avoir sauvegardé les paramètres précedents": "Nach dem Speichern der vorherigen Einstellungen",
         "Recupération des informations de connexion": "Verbindungsinformationen abrufen",
+        "next_url=https%3A%2F%2Fdev.netatmo.com%2Fbusiness-showcase": "next_url=https%3A%2F%2Fdev.netatmo.com%2Fbusiness-showcase",
         "Une fois dessus cliquez sur \"START": "Sobald Sie darauf sind, klicken Sie auf \"START",
         "Puis sur \"create an app": "Dann auf \"App erstellen",
         "Identifiez-vous avec votre mail et mot de passe": "Identifizieren Sie sich mit Ihrer E-Mail-Adresse und Ihrem Passwort",

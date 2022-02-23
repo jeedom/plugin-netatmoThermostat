@@ -19,6 +19,8 @@ Once the plugin is installed, you must enter your Netatmo connection information
 
 Pour intégrer votre station, vous devez posséder un client\_id et un client\_secret généré sur le site <http://dev.netatmo.com>.
 
+Pour créer un compte > https://auth.netatmo.com/fr-fr/access/signup?next_url=https%3A%2F%2Fdev.netatmo.com%2Fbusiness-showcase
+
 Once on it click on "START" :
 
 ![netatmoWeather10](../images/netatmoWeather10.png)

@@ -4,18 +4,18 @@
         "Client secret": "秘密の買い物客",
         "Nom d'utilisateur": "ユーザー名",
         "Mot de passe": "パスワード",
-        "Récupérer les infos du plugin": "",
-        "Netatmo Welcome": "",
-        "Netatmo Station": "",
+        "Récupérer les infos du plugin": "Récupérer les infos du plugin",
+        "Netatmo Welcome": "Netatmo Welcome",
+        "Netatmo Station": "Netatmo Station",
         "Synchroniser": "同期",
         "Synchroniser mes Thermostats": "私のサーモスタットを同期",
         "Synchronisation réussie": "正常な同期",
-        "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "",
-        "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": ""
+        "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "Cela récupérera les identifiants configurés dans le plugin Netatmo Welcome, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ?",
+        "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ? ": "Cela récupérera les identifiants configurés dans le plugin Netatmo Weather, il faudra sauver avant de lancer la synchronisation. Voulez vous procéder ?"
     },
     "plugins\/netatmoThermostat\/desktop\/modal\/health.php": {
         "Module": "モジュール",
-        "ID": "",
+        "ID": "ID",
         "Adresses Macs": "Macをアドレス",
         "Firmwares": "ファームウェア",
         "Date création": "作成日"
@@ -62,11 +62,11 @@
         "Aucune methode correspondante à : ": "以下に対応するメソッドはありません："
     },
     "plugins\/netatmoThermostat\/core\/class\/netatmoThermostat.class.php": {
-        "Erreur sur synchro netatmo thermostat ": "",
+        "Erreur sur synchro netatmo thermostat ": "Erreur sur synchro netatmo thermostat",
         "Consigne": "オーダー",
         "Température": "温度",
         "Mode": "モード",
-        "ModeTech": "",
+        "ModeTech": "ModeTech",
         "Planning": "スケジュール",
         "Calendrier": "カレンダー",
         "Planning suivant": "次のスケジュール",
@@ -77,25 +77,25 @@
         "Fin Mode en Cours": "エンド・ファッションコース",
         "Signal Wifi": "無線LAN信号",
         "Etat Chauffage": "国家暖房",
-        "Statut pour mobile": "",
+        "Statut pour mobile": "Statut pour mobile",
         "Rafraichir": "クール",
         "Absent": "不在の",
         "Durée (minutes)": "時間（分）",
-        "Mode Auto": "",
-        "Mode Absent": "",
+        "Mode Auto": "Mode Auto",
+        "Mode Absent": "Mode Absent",
         "Hors-gel": "霜",
-        "Mode Hors-gel ": "",
+        "Mode Hors-gel ": "Mode Hors-gel",
         "Mode Forcé": "強制モード",
         "Eteindre": "オフスイッチ",
         "Max": "マックス",
         "Réglage Consigne": "設定設定値",
-        "Consigne pour appmobile": "",
+        "Consigne pour appmobile": "Consigne pour appmobile",
         "Réglage Calendrier": "設定カレンダー",
         "Id Calendrier": "IDカレンダー",
         "Réglage Fin": "微調整",
         "Timestamp de fin": "タイムスタンプ終了"
     },
     "info.json": {
-        "Plugin pour contrôler son thermostat Netatmo.<br\/><br\/>Le plugin permet de :<br\/>-Choisir le mode de fonctionnement du thermostat (programme,max,absent,hors gel, off, consigne manuel)<br\/>-Choisir son calendrier (vacances, standard etc...)<br\/>- De connaitre la batterie et les niveaux de signals du thermostat<br\/>- De connaitre le planning actuel ainsi que le suivant (et l'heure de fin du planning actuel)<br\/>- De définir le jour et heure de fin des modes (absent, hors-gel, max et manuel)<br\/>- L'ensemble des fonctions sont disponibles via scénarios<br\/>- Les deux widgets (dashboard et mobile) permettent d'accéder à toutes ces fonctionnalités": ""
+        "Plugin pour contrôler son thermostat Netatmo.<br\/><br\/>Le plugin permet de :<br\/>-Choisir le mode de fonctionnement du thermostat (programme,max,absent,hors gel, off, consigne manuel)<br\/>-Choisir son calendrier (vacances, standard etc...)<br\/>- De connaitre la batterie et les niveaux de signals du thermostat<br\/>- De connaitre le planning actuel ainsi que le suivant (et l'heure de fin du planning actuel)<br\/>- De définir le jour et heure de fin des modes (absent, hors-gel, max et manuel)<br\/>- L'ensemble des fonctions sont disponibles via scénarios<br\/>- Les deux widgets (dashboard et mobile) permettent d'accéder à toutes ces fonctionnalités": "Plugin pour contrôler son thermostat Netatmo.<br\/><br\/>Le plugin permet de :<br\/>-Choisir le mode de fonctionnement du thermostat (programme,max,absent,hors gel, off, consigne manuel)<br\/>-Choisir son calendrier (vacances, standard etc...)<br\/>- De connaitre la batterie et les niveaux de signals du thermostat<br\/>- De connaitre le planning actuel ainsi que le suivant (et l'heure de fin du planning actuel)<br\/>- De définir le jour et heure de fin des modes (absent, hors-gel, max et manuel)<br\/>- L'ensemble des fonctions sont disponibles via scénarios<br\/>- Les deux widgets (dashboard et mobile) permettent d'accéder à toutes ces fonctionnalités"
     }
 }
